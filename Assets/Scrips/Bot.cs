@@ -46,7 +46,6 @@ public class Bot : MonoBehaviour
         {
             var movement = angle > 0 ? Vector3.forward : Vector3.forward * -1;
             _rigidbody.velocity = movement * _speed * Time.fixedDeltaTime;
-            Debug.Log($"{angle} {movement} {movement * _speed * Time.fixedDeltaTime} {_rigidbody.velocity}");
         }
     }
 

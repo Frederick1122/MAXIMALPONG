@@ -5,6 +5,8 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Rigidbody))]
 public class Ball : MonoBehaviour
 {
+    [SerializeField] private float _deviation = 0.5f;
+    [Space]
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _maxSpeed = 500f;
     
@@ -19,8 +21,21 @@ public class Ball : MonoBehaviour
         var ballStopper = collision.gameObject.GetComponent<BallStopper>();
         if (ballStopper != null)
         {
-            var multiplierVector = ballStopper.GetMultiplierVector();
-            _direction = new Vector3(multiplierVector.x * _direction.x, 0, multiplierVector.z * _direction.z);
+            Vector3 multiplierVector;
+            var bounds = collision.collider.bounds;
+            
+            var isColliderBoundsInRight = bounds.min.z > transform.position.z &&
+                                          bounds.max.z > transform.position.z;
+            var isColliderBoundsInLeft = bounds.min.z < transform.position.z &&
+                                          bounds.max.z < transform.position.z;
+
+            if (isColliderBoundsInLeft || isColliderBoundsInRight)
+                multiplierVector = Vector3.right + Vector3.back;
+            else
+                multiplierVector = Vector3.left + Vector3.forward;
+
+            _direction = new Vector3(multiplierVector.x * _direction.x * Random.Range(1f - _deviation, 1f + _deviation), 0,
+                multiplierVector.z * _direction.z * Random.Range(1f - _deviation, 1f + _deviation));
             _speed = Mathf.Clamp(_speed * ballStopper.GetMultiplier(), 1f, _maxSpeed);
             return;
         }
