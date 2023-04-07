@@ -7,13 +7,17 @@ using Random = UnityEngine.Random;
 public class GameManager : Singleton<GameManager>
 {
     public Action OnChangeActiveBallsAction;
-    
+    [SerializeField] private ScoreUpdater _scoreUpdater;
+    [Space]
     [SerializeField] private List<Team> _teams;
     [Space(5)] 
     [SerializeField] private List<Ball> _activeBalls = new List<Ball>(); // balls in scene
-    [SerializeField] private BallSpawnType _ballSpawnType;
     [SerializeField] private Transform _ballSpawnPoint;
     [SerializeField] private List<Ball> _ballPrefabs = new List<Ball>();
+    [Space]
+    [Header("Settings")]
+    [SerializeField] private BallSpawnType _ballSpawnType;
+    [SerializeField] private GameType _gameType;
 
     private void OnValidate()
     {
@@ -27,8 +31,18 @@ public class GameManager : Singleton<GameManager>
         OnChangeActiveBallsAction?.Invoke();
     }
 
-    public void UpdateScore(TeamType teamType)
+    public void UpdateScore(TeamType gateType, TeamType lastPunch)
     {
+        var teamType = TeamType.None;
+        
+        if (_gameType == GameType.AddPointsIfMadeLastPunch && gateType != lastPunch)
+            teamType = lastPunch;
+        else if (_gameType == GameType.RemovePointsIfConcedeAnOwnGoal) 
+            teamType = gateType;
+
+        if (_ballSpawnType == BallSpawnType.byScore) 
+            SpawnNewBall();
+        
         if(teamType == TeamType.None)
             return;
 
@@ -37,10 +51,7 @@ public class GameManager : Singleton<GameManager>
             if (team.GetTeamType() == teamType)
             {
                 team.Score++;
-
-                if (_ballSpawnType == BallSpawnType.byScore) 
-                    SpawnNewBall();
-                
+                _scoreUpdater.UpdateScore(teamType);
                 return;
             }
         }

@@ -4,10 +4,5 @@ using UnityEngine;
 
 public class Border : MonoBehaviour
 {
-    [SerializeField] private TeamType teamType;
-
-    public void UpdateScore()
-    {
-        GameManager.Instance.UpdateScore(teamType);
-    }
+    public TeamType TeamType;
 }

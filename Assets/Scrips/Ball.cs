@@ -15,35 +15,37 @@ public class Ball : MonoBehaviour
     
     private Vector3 _direction;
     private Rigidbody _rigidbody;
-
+    private TeamType _preLastPunch = TeamType.None;
+    private TeamType _lastPunch = TeamType.None;
+    
     private void OnCollisionEnter(Collision collision)
     {
         var ballStopper = collision.gameObject.GetComponent<BallStopper>();
         if (ballStopper != null)
         {
-            Vector3 multiplierVector;
-            var bounds = collision.collider.bounds;
+            _direction = Vector3.Reflect(_direction, collision.contacts[0].normal);
+            _direction = new Vector3(_direction.x * Random.Range(1f - _deviation, 1f + _deviation), 0,
+                _direction.z * Random.Range(1f - _deviation, 1f + _deviation));
+            _speed = Mathf.Clamp(_speed * ballStopper.Multiplier, 1f, _maxSpeed);
+
+            if (ballStopper.TeamType != TeamType.None)
+            {
+                if(_lastPunch != _preLastPunch)
+                    _preLastPunch = _lastPunch;
+                
+                _lastPunch = ballStopper.TeamType;
+            } 
             
-            var isColliderBoundsInRight = bounds.min.z > transform.position.z &&
-                                          bounds.max.z > transform.position.z;
-            var isColliderBoundsInLeft = bounds.min.z < transform.position.z &&
-                                          bounds.max.z < transform.position.z;
-
-            if (isColliderBoundsInLeft || isColliderBoundsInRight)
-                multiplierVector = Vector3.right + Vector3.back;
-            else
-                multiplierVector = Vector3.left + Vector3.forward;
-
-            _direction = new Vector3(multiplierVector.x * _direction.x * Random.Range(1f - _deviation, 1f + _deviation), 0,
-                multiplierVector.z * _direction.z * Random.Range(1f - _deviation, 1f + _deviation));
-            _speed = Mathf.Clamp(_speed * ballStopper.GetMultiplier(), 1f, _maxSpeed);
             return;
         }
 
         var border = collision.gameObject.GetComponent<Border>();
         if (border != null)
         {
-            border.UpdateScore();
+            if (_lastPunch == border.TeamType)
+                _lastPunch = _preLastPunch;
+            
+            GameManager.Instance.UpdateScore(border.TeamType, _lastPunch);
             GameManager.Instance.DestroyBall(this);
             return;
         }

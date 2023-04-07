@@ -10,3 +10,9 @@ public enum BallSpawnType
     byTime,
     byScore
 }
+
+public enum GameType
+{
+    AddPointsIfMadeLastPunch,
+    RemovePointsIfConcedeAnOwnGoal
+}
