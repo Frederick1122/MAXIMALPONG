@@ -34,8 +34,14 @@ public class Ball : MonoBehaviour
                     _preLastPunch = _lastPunch;
                 
                 _lastPunch = ballStopper.TeamType;
-            } 
-            
+            }
+
+            if (ballStopper.IsPlane)
+            {
+                _rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
+                _rigidbody.useGravity = false;
+            }
+
             return;
         }
 
@@ -47,11 +53,7 @@ public class Ball : MonoBehaviour
             
             GameManager.Instance.UpdateScore(border.TeamType, _lastPunch);
             GameManager.Instance.DestroyBall(this);
-            return;
         }
-
-        _rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
-        _rigidbody.useGravity = false;
     }
 
     private void Start()

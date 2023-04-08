@@ -11,7 +11,7 @@ public class Bot : MonoBehaviour
     private float _speed = 200f;
     
     private Coroutine _findNearestBallCoroutine = null;
-    private YieldInstruction _findTick = new WaitForSeconds(2f);
+    private YieldInstruction _findTick = new WaitForSeconds(0.3f);
     
     private Vector3 _minColliderBounds;
     private Vector3 _maxColliderBounds;
@@ -24,7 +24,7 @@ public class Bot : MonoBehaviour
 
         _rigidbody = GetComponent<Rigidbody>();
         
-        var boxColliderBounds = GetComponent<MeshRenderer>().bounds.size;
+        var boxColliderBounds = GetComponent<BoxCollider>().size;
         _minColliderBounds = -new Vector3(0, 0, boxColliderBounds.z / 2);
         _maxColliderBounds = new Vector3(0, 0, boxColliderBounds.z / 2);
     }
@@ -39,12 +39,11 @@ public class Bot : MonoBehaviour
         
         var forward = transform.right;
         
-        
         var angle = Vector3.SignedAngle(targetPos - transform.position, forward, Vector3.up);
         
         if (angle * angle > 10 * 10)
         {
-            var movement = angle > 0 ? Vector3.forward : Vector3.forward * -1;
+            var movement = angle > 0 ? transform.forward : -transform.forward;
             _rigidbody.velocity = movement * _speed * Time.fixedDeltaTime;
         }
     }
@@ -58,22 +57,16 @@ public class Bot : MonoBehaviour
         }
     }
 
-    // private IEnumerator WaitRoutine
-    // {
-    //     
-    // }
-    
     private void FindNearestBall()
     {
         float minDistance = 0;
         foreach (var ball in _activeBalls)
         {
-            var heading = transform.position - ball.transform.position;
-            var distance = heading.magnitude;
-
-            if (minDistance == 0 || distance < minDistance)
+            var XDistance = transform.InverseTransformPoint(ball.transform.position).x;
+            
+            if (minDistance == 0 || XDistance < minDistance)
             {
-                minDistance = distance;
+                minDistance = XDistance;
                 _nearestBall = ball.transform;
             }
         }
@@ -98,13 +91,26 @@ public class Bot : MonoBehaviour
             {  
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawSphere(transform.position, 0.1f);
-                Gizmos.color = Color.blue;
-                Gizmos.DrawSphere(_minColliderBounds + transform.position, 0.1f);
-                Gizmos.color = Color.green;
-                Gizmos.DrawSphere(_maxColliderBounds + transform.position, 0.1f);
                 
-                Debug.DrawLine(_minColliderBounds + transform.position, _minColliderBounds + _nearestBall.transform.position, Color.red);
-                Debug.DrawLine(_maxColliderBounds + transform.position, _maxColliderBounds + _nearestBall.transform.position, Color.red);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(transform.TransformPoint(_minColliderBounds), 0.1f);
+                
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(transform.TransformPoint(_maxColliderBounds), 0.1f);
+
+                if (_nearestBall != null)
+                {
+                    Gizmos.color = Color.white;
+                    var newZ = new Vector3(0, 0, transform.InverseTransformPoint(_nearestBall.position).z) ;
+                    Gizmos.DrawSphere( transform.TransformPoint(newZ), 0.1f);
+
+                    Gizmos.color = Color.red;
+                    var newX = new Vector3(transform.InverseTransformPoint(_nearestBall.position).x, 0, 0) ;
+                    Gizmos.DrawSphere( transform.TransformPoint(newX), 0.1f);
+                }
+
+                Debug.DrawLine( transform.TransformPoint(_minColliderBounds), _minColliderBounds + _nearestBall.transform.position, Color.red);
+                Debug.DrawLine(transform.TransformPoint(_maxColliderBounds), _maxColliderBounds + _nearestBall.transform.position, Color.red);
                 Debug.DrawLine(transform.position, _nearestBall.transform.position, Color.red);
             }
         }

@@ -61,7 +61,9 @@ public class GameManager : Singleton<GameManager>
 
     public void SpawnNewBall()
     {
-        _activeBalls.Add(Instantiate(_ballPrefabs[Random.Range(0, _ballPrefabs.Count)], _ballSpawnPoint)); 
+        var newBall = Instantiate(_ballPrefabs[Random.Range(0, _ballPrefabs.Count)], _ballSpawnPoint);
+        newBall.transform.parent = null;
+        _activeBalls.Add(newBall);
         OnChangeActiveBallsAction?.Invoke();
     }
 
