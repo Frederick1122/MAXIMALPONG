@@ -7,12 +7,20 @@
 
 public enum BallSpawnType
 {
-    byTime,
-    byScore
+    ByTime,
+    ByScore
 }
 
 public enum GameType
 {
     AddPointsIfMadeLastPunch,
     RemovePointsIfConcedeAnOwnGoal
+}
+
+public enum UIType
+{
+    MainMenu,
+    Game,
+    Pause,
+    Shop
 }

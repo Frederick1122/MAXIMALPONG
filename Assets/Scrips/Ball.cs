@@ -58,13 +58,16 @@ public class Ball : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.AddNewActiveBall(this);
+        
         _rigidbody = GetComponent<Rigidbody>();
 
         var multiplier = Random.Range(0, 2) == 1 ? 1 : -1; 
         var angle = Random.Range(_minAngle, _maxAngle) * multiplier;
         var direction = Utils.GetVectorFromAngle((360 + angle) % 360);
         _direction = new Vector3(direction.x, 0, direction.y);
-        Debug.Log($"{angle} Direction: {_direction.normalized}");
+        
+        //Debug.Log($"{angle} Direction: {_direction.normalized}");
     }
 
     private void FixedUpdate()

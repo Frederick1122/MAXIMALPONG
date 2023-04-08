@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,26 +7,31 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class Bot : MonoBehaviour
 {
+    [SerializeField] private float _speed = 200f;
+    [SerializeField] private float _maxDistance = 25f;
     private List<Ball> _activeBalls = new List<Ball>();
     private Transform _nearestBall = null;
-    private float _speed = 200f;
     
     private Coroutine _findNearestBallCoroutine = null;
     private YieldInstruction _findTick = new WaitForSeconds(0.3f);
-    
+
     private Vector3 _minColliderBounds;
     private Vector3 _maxColliderBounds;
+    private Vector3 _nearestBallProjection;
 
     private Rigidbody _rigidbody;
+    private BoxCollider _boxCollider;
     
     private void Start()
     {
         GameManager.Instance.OnChangeActiveBallsAction += UpdateActiveBalls;
 
         _rigidbody = GetComponent<Rigidbody>();
+        _boxCollider = GetComponent<BoxCollider>();
         
-        var boxColliderBounds = GetComponent<BoxCollider>().size;
-        _minColliderBounds = -new Vector3(0, 0, boxColliderBounds.z / 2);
+        var boxColliderBounds = _boxCollider.size;
+
+       _minColliderBounds = -new Vector3(0, 0, boxColliderBounds.z / 2);
         _maxColliderBounds = new Vector3(0, 0, boxColliderBounds.z / 2);
     }
 
@@ -38,13 +44,20 @@ public class Bot : MonoBehaviour
         targetPos.y = transform.position.y;
         
         var forward = transform.right;
-        
-        var angle = Vector3.SignedAngle(targetPos - transform.position, forward, Vector3.up);
-        
-        if (angle * angle > 10 * 10)
+
+        _nearestBallProjection = new Vector3(0, 0, transform.InverseTransformPoint(_nearestBall.position).z) ;
+        _nearestBallProjection = transform.TransformPoint(_nearestBallProjection);
+
+        // transform.position =
+        //     Vector3.MoveTowards(transform.position, _nearestBallProjection, _speed * Time.deltaTime);
+        if (transform.InverseTransformPoint(_nearestBall.transform.position).x < _maxDistance)
         {
-            var movement = angle > 0 ? transform.forward : -transform.forward;
-            _rigidbody.velocity = movement * _speed * Time.fixedDeltaTime;
+            if (!_boxCollider.bounds.Contains(_nearestBallProjection))
+            {
+                var angle = Vector3.SignedAngle(targetPos - transform.position, forward, Vector3.up);
+                var movement = angle > 0 ? transform.forward : -transform.forward;
+                _rigidbody.velocity = movement * _speed * Time.deltaTime;
+            }
         }
     }
 
@@ -80,8 +93,17 @@ public class Bot : MonoBehaviour
             StopCoroutine(_findNearestBallCoroutine);
         _findNearestBallCoroutine = StartCoroutine(FindNearestBallRoutine());
     }
-    
-    
+
+    private void OnDestroy()
+    {
+        if (_findNearestBallCoroutine != null)
+        {
+            GameManager.Instance.OnChangeActiveBallsAction -= UpdateActiveBalls;
+            StopCoroutine(_findNearestBallCoroutine);
+            _findNearestBallCoroutine = null;
+        }
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -101,8 +123,7 @@ public class Bot : MonoBehaviour
                 if (_nearestBall != null)
                 {
                     Gizmos.color = Color.white;
-                    var newZ = new Vector3(0, 0, transform.InverseTransformPoint(_nearestBall.position).z) ;
-                    Gizmos.DrawSphere( transform.TransformPoint(newZ), 0.1f);
+                    Gizmos.DrawSphere( _nearestBallProjection, 0.1f);
 
                     Gizmos.color = Color.red;
                     var newX = new Vector3(transform.InverseTransformPoint(_nearestBall.position).x, 0, 0) ;

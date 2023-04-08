@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 4165a0d59d6258245bcd05dbb7b58b88
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - 18VAG Rounded M
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: bb039c30ec3c40b4bbbf980c43645a2a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
