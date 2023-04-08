@@ -33,6 +33,6 @@ public class Player : MonoBehaviour
             zMovement = Input.GetAxis("Horizontal");
         }
         _rigidbody.WakeUp();
-        _rigidbody.velocity = new Vector3(0, 0, zMovement)  * _speed * Time.fixedDeltaTime;
+        _rigidbody.velocity = transform.forward * zMovement  * _speed * Time.fixedDeltaTime;
     }
 }
