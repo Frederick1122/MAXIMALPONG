@@ -8,10 +8,15 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     public Action OnLoadingScreenIsDone;
-    [SerializeField] private ScoreUpdater _scoreUpdater;
+    
     [SerializeField] private Image _loadingImage;
     [SerializeField] private List<UIWindow> _windows;
+    
+    [SerializeField] private ScoreUpdater _scoreUpdater;
+    [SerializeField] private TimerView _timerView;
 
+    [Header("FOR DEBUGGING")] [SerializeField]
+    private LevelConfig _levelConfig;
     //loadingScreen
     private bool _isLoadingScreenFullAlpha;
     private bool _isStartLoadingScreen;
@@ -19,12 +24,18 @@ public class UIManager : Singleton<UIManager>
     private float _alphaStep;
     //
     
-    public void SetActiveWindow(UIType uiType)
+    
+    public void StartLevel(LevelConfig levelConfig)
     {
-        foreach (var uiWindow in _windows) 
-            uiWindow.Window.SetActive(uiWindow.Type == uiType);
+        SetActiveWindow(levelConfig.levelType);
+        
+        if (levelConfig.levelType != LevelType.Game)
+            return;
+        
+        _scoreUpdater.ResetScore();
+        _timerView.Init(levelConfig.time);
     }
-
+    
     public void SetActiveLoadingScreen(bool isFullAlpha, float timePeriod = 1f)
     {
         _timePeriod = timePeriod;
@@ -38,10 +49,8 @@ public class UIManager : Singleton<UIManager>
         SetColorAlpha(_loadingImage, _loadingImage.color.a + _alphaStep * Time.deltaTime);
     }
 
-    public void StartLevel()
-    {
-        GameManager.Instance.StartLoadingNewLevel("Level1", UIType.Game);
-    }
+    public void StartLevelDebugging() => GameManager.Instance.StartLoadingNewLevel(_levelConfig);
+
 
     public ScoreUpdater GetScoreUpdater() => _scoreUpdater;
     
@@ -51,10 +60,7 @@ public class UIManager : Singleton<UIManager>
         _loadingImage.gameObject.SetActive(false);
     }
 
-    private void Update()
-    {
-        LoadingScreenUpdater();
-    }
+    private void Update() => LoadingScreenUpdater();
 
     private void LoadingScreenUpdater()
     {
@@ -69,6 +75,12 @@ public class UIManager : Singleton<UIManager>
             }
         }
     }
+
+    private void SetActiveWindow(LevelType levelType)
+    {
+        foreach (var uiWindow in _windows) 
+            uiWindow.Window.SetActive(uiWindow.Type == levelType);
+    }
     
     private void SetColorAlpha(Image image, float newAlpha)
     {
@@ -82,6 +94,6 @@ public class UIManager : Singleton<UIManager>
     public class UIWindow
     {
         public GameObject Window;
-        public UIType Type;
+        public LevelType Type;
     }
 }

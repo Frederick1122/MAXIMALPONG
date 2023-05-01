@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Base;
 using UnityEngine;
@@ -9,7 +10,9 @@ public class GameManager : Singleton<GameManager>
     private const string LEVELS_PATH = "Levels/";
     
     public Action OnChangeActiveBallsAction;
-    [Header("Level")]
+    [Header("Level")] 
+    [SerializeField] private LevelConfig _initLevel;
+    [Space]
     [SerializeField] private GameObject _levelSpawnPoint;
     [SerializeField] private GameObject _activeLevel;
     [Space]
@@ -19,18 +22,11 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Transform _ballSpawnPoint;
     [SerializeField] private List<Ball> _activeBalls = new List<Ball>(); // balls in scene
     [SerializeField] private List<Ball> _ballPrefabs = new List<Ball>();
-    [Space]
-    [Header("Settings")]
-    [SerializeField] private BallSpawnType _ballSpawnType;
-    [SerializeField] private GameType _gameType;
 
-    private string _newLevel;
-    private UIType _activeUIType;
+    private LevelConfig _currentLevel;
+    private Coroutine _levelRoutine;
 
-    private void OnValidate()
-    {
-        UpdateFields();
-    }
+    private void OnValidate() => UpdateFields();
 
     private void Start()
     {
@@ -43,12 +39,17 @@ public class GameManager : Singleton<GameManager>
     {
         var teamType = TeamType.None;
         
-        if (_gameType == GameType.AddPointsIfMadeLastPunch && gateType != lastPunch)
-            teamType = lastPunch;
-        else if (_gameType == GameType.RemovePointsIfConcedeAnOwnGoal) 
-            teamType = gateType;
+        if(_currentLevel == null)
+            return;
 
-        if (_ballSpawnType == BallSpawnType.ByScore) 
+        teamType = _currentLevel.gameType switch
+        {
+            GameType.AddPointsIfMadeLastPunch when gateType != lastPunch => lastPunch,
+            GameType.RemovePointsIfConcedeAnOwnGoal => gateType,
+            _ => teamType
+        };
+
+        if (_currentLevel.ballSpawnType == BallSpawnType.ByScore) 
             SpawnNewBall();
         
         if(teamType == TeamType.None)
@@ -66,15 +67,14 @@ public class GameManager : Singleton<GameManager>
         
         Debug.LogError($"{teamType} not founded. check GameManager");
     }
-
-    public void StartLoadingNewLevel(string levelName, UIType uiType)
+    
+    public void StartLoadingNewLevel(LevelConfig levelConfig)
     {
-        _newLevel = levelName;
-        _activeUIType = uiType;
+        _currentLevel = levelConfig;
         UIManager.Instance.OnLoadingScreenIsDone += FinishLoadingNewLevel;
         UIManager.Instance.SetActiveLoadingScreen(true);
     }
-
+    
     private void FinishLoadingNewLevel()
     {
         UIManager.Instance.OnLoadingScreenIsDone -= FinishLoadingNewLevel;
@@ -90,16 +90,22 @@ public class GameManager : Singleton<GameManager>
         
         _activeBalls = new List<Ball>();
         
-        var newLevel = Resources.Load<GameObject>($"{LEVELS_PATH}{_newLevel}");
+        var newLevel = Resources.Load<GameObject>($"{LEVELS_PATH}{_currentLevel.levelName}");
         Destroy(_activeLevel);
         
         _activeLevel = Instantiate(newLevel,_levelSpawnPoint.transform);
         _activeLevel.transform.SetParent(null);
         
-        UIManager.Instance.GetScoreUpdater().ResetScore();
-        
-        UIManager.Instance.SetActiveWindow(_activeUIType);
         UIManager.Instance.SetActiveLoadingScreen(false);
+        UIManager.Instance.StartLevel(_currentLevel);
+
+        if (_currentLevel.levelType == LevelType.Game)
+        {
+            if (_levelRoutine != null)
+                StopCoroutine(_levelRoutine);
+
+            _levelRoutine = StartCoroutine(LevelRoutine());
+        }
     }
     
     public List<Ball> GetActiveBalls() => _activeBalls;
@@ -136,6 +142,12 @@ public class GameManager : Singleton<GameManager>
             foreach (var ball in balls)
                 _activeBalls.Add((Ball) ball);
         }
+    }
+
+    private IEnumerator LevelRoutine()
+    {
+        yield return new WaitForSeconds(_currentLevel.time);
+        StartLoadingNewLevel(_initLevel);
     }
 }
 

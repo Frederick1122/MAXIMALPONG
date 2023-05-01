@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelConfig : MonoBehaviour
+[CreateAssetMenu(fileName = "NewLevelConfig", menuName = "Configs/NewLevelConfig")]
+public class LevelConfig : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string levelName;
+    [Space]
+    public int ballCount;
+    public int time;
+    [Space]
+    public LevelType levelType;
+    public BallSpawnType ballSpawnType;
+    public GameType gameType;
 }

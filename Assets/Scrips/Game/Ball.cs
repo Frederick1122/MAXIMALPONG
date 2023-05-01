@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -24,7 +23,7 @@ public class Ball : MonoBehaviour
         if (ballStopper != null)
         {
             Debug.Log($"Ball: {gameObject.name} Collision: {collision.gameObject.name} Old direction: {_direction}");
-            _direction = Vector3.Reflect(_direction, collision.contacts[0].normal);
+            _direction = Vector3.Reflect(_direction, collision.contacts[collision.contacts.Length - 1].normal);
             _direction = new Vector3(_direction.x * Random.Range(1f - _deviation, 1f + _deviation), 0,
                 _direction.z * Random.Range(1f - _deviation, 1f + _deviation));
             Debug.Log($"Ball: {gameObject.name} New direction: {_direction}");
