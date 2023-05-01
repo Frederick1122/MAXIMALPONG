@@ -19,7 +19,13 @@ public class ScoreUpdater : MonoBehaviour
          }
       }
    }
-   
+
+   public void ResetScore()
+   {
+      foreach (var team in _teams) 
+         team.Text.text = "0";
+   }
+
    [Serializable]
    internal class TeamText
    {

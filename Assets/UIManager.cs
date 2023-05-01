@@ -38,13 +38,12 @@ public class UIManager : Singleton<UIManager>
         SetColorAlpha(_loadingImage, _loadingImage.color.a + _alphaStep * Time.deltaTime);
     }
 
-    public void UpdateUIScore(TeamType teamType) => _scoreUpdater.UpdateScore(teamType);
-    
     public void StartLevel()
     {
         GameManager.Instance.StartLoadingNewLevel("Level1", UIType.Game);
     }
-    
+
+    public ScoreUpdater GetScoreUpdater() => _scoreUpdater;
     
     private void Start()
     {

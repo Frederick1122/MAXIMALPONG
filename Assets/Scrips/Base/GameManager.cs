@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Base;
 using UnityEngine;
@@ -60,7 +59,7 @@ public class GameManager : Singleton<GameManager>
             if (team.GetTeamType() == teamType)
             {
                 team.Score++;
-                UIManager.Instance.UpdateUIScore(teamType);
+                UIManager.Instance.GetScoreUpdater().UpdateScore(teamType);
                 return;
             }
         }
@@ -79,11 +78,26 @@ public class GameManager : Singleton<GameManager>
     private void FinishLoadingNewLevel()
     {
         UIManager.Instance.OnLoadingScreenIsDone -= FinishLoadingNewLevel;
+
+        var ballsCount = _activeBalls.Count;
+        for (var i = 0; i < ballsCount; i++)
+        {
+            if (_activeBalls[0] != null)
+                DestroyBall(_activeBalls[0]);
+            else
+                _activeBalls.RemoveAt(0);
+        }
+        
         _activeBalls = new List<Ball>();
+        
         var newLevel = Resources.Load<GameObject>($"{LEVELS_PATH}{_newLevel}");
         Destroy(_activeLevel);
+        
         _activeLevel = Instantiate(newLevel,_levelSpawnPoint.transform);
         _activeLevel.transform.SetParent(null);
+        
+        UIManager.Instance.GetScoreUpdater().ResetScore();
+        
         UIManager.Instance.SetActiveWindow(_activeUIType);
         UIManager.Instance.SetActiveLoadingScreen(false);
     }
