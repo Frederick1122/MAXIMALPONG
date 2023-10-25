@@ -10,7 +10,7 @@ public class TimerView : MonoBehaviour
 
     private int _remainingTime;
     private YieldInstruction _second = new WaitForSeconds(1f);
-    private Coroutine _timerRoutine ;
+    private Coroutine _timerRoutine;
     
     private void OnValidate()
     {
@@ -29,7 +29,10 @@ public class TimerView : MonoBehaviour
         _timerRoutine = StartCoroutine(TimerRoutine());
     }
 
-    private void SetTime(int time) => _text.text = TimeSpan.FromSeconds(time).ToString()[3..];
+    private void SetTime(int time)
+    {
+        _text.text = TimeSpan.FromSeconds(time).ToString()[3..];
+    }
 
     private IEnumerator TimerRoutine()
     {

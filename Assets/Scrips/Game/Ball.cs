@@ -52,14 +52,14 @@ public class Ball : MonoBehaviour
             if (_lastPunch == border.TeamType)
                 _lastPunch = _preLastPunch;
             
-            GameManager.Instance.UpdateScore(border.TeamType, _lastPunch);
-            GameManager.Instance.DestroyBall(this);
+            MatchManager.Instance.UpdateScore(border.TeamType, _lastPunch);
+            MatchManager.Instance.DestroyBall(this);
         }
     }
 
     private void Start()
     {
-        GameManager.Instance.AddNewActiveBall(this);
+        MatchManager.Instance.AddNewActiveBall(this);
         
         _rigidbody = GetComponent<Rigidbody>();
 

@@ -5,7 +5,7 @@ using Base;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GameManager : Singleton<GameManager>
+public class MatchManager : Singleton<MatchManager>
 {
     private const string LEVELS_PATH = "Levels/";
     
@@ -60,7 +60,7 @@ public class GameManager : Singleton<GameManager>
             if (team.GetTeamType() == teamType)
             {
                 team.Score++;
-                UIManager.Instance.GetScoreUpdater().UpdateScore(teamType);
+                UIManager.Instance.IncrementScore(teamType);
                 return;
             }
         }
@@ -68,8 +68,10 @@ public class GameManager : Singleton<GameManager>
         Debug.LogError($"{teamType} not founded. check GameManager");
     }
     
-    public void StartLoadingNewLevel(LevelConfig levelConfig)
+    public void StartLoadingNewLevel(LevelConfig levelConfig, screenType screenType)
     {
+        GameBus.Instance.SetLevel(levelConfig, screenType);
+        
         _currentLevel = levelConfig;
         UIManager.Instance.OnLoadingScreenIsDone += FinishLoadingNewLevel;
         UIManager.Instance.SetActiveLoadingScreen(true);
@@ -97,9 +99,9 @@ public class GameManager : Singleton<GameManager>
         _activeLevel.transform.SetParent(null);
         
         UIManager.Instance.SetActiveLoadingScreen(false);
-        UIManager.Instance.StartLevel(_currentLevel);
+        UIManager.Instance.StartLevel();
 
-        if (_currentLevel.levelType == LevelType.Game)
+        if (_currentLevel.time > 0)
         {
             if (_levelRoutine != null)
                 StopCoroutine(_levelRoutine);
@@ -147,7 +149,7 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator LevelRoutine()
     {
         yield return new WaitForSeconds(_currentLevel.time);
-        StartLoadingNewLevel(_initLevel);
+        StartLoadingNewLevel(_initLevel, screenType.MainMenu);
     }
 }
 

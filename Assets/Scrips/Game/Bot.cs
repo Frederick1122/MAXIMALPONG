@@ -24,7 +24,7 @@ public class Bot : MonoBehaviour
     
     private void Start()
     {
-        GameManager.Instance.OnChangeActiveBallsAction += UpdateActiveBalls;
+        MatchManager.Instance.OnChangeActiveBallsAction += UpdateActiveBalls;
 
         _rigidbody = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
@@ -87,7 +87,7 @@ public class Bot : MonoBehaviour
     
     private void UpdateActiveBalls()
     {
-        _activeBalls = GameManager.Instance.GetActiveBalls();
+        _activeBalls = MatchManager.Instance.GetActiveBalls();
         
             if (_findNearestBallCoroutine != null) 
             StopCoroutine(_findNearestBallCoroutine);
@@ -98,7 +98,7 @@ public class Bot : MonoBehaviour
     {
         if (_findNearestBallCoroutine != null)
         {
-            GameManager.Instance.OnChangeActiveBallsAction -= UpdateActiveBalls;
+            MatchManager.Instance.OnChangeActiveBallsAction -= UpdateActiveBalls;
             StopCoroutine(_findNearestBallCoroutine);
             _findNearestBallCoroutine = null;
         }

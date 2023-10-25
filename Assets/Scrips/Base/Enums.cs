@@ -17,9 +17,10 @@ public enum GameType
     RemovePointsIfConcedeAnOwnGoal
 }
 
-public enum LevelType
+public enum screenType
 {
     MainMenu,
     Game,
-    Shop
+    Shop,
+    Settings
 }

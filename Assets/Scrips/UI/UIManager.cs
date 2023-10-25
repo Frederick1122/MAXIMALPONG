@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Base;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,30 +8,32 @@ public class UIManager : Singleton<UIManager>
     public Action OnLoadingScreenIsDone;
     
     [SerializeField] private Image _loadingImage;
-    [SerializeField] private List<UIWindow> _windows;
+    //[SerializeField] private List<UIWindow> _windows;
+    [SerializeField] private MainMenuController _mainMenuController;
+    [SerializeField] private GameScreenController _gameScreenController; 
     
-    [SerializeField] private ScoreUpdater _scoreUpdater;
-    [SerializeField] private TimerView _timerView;
+    // [SerializeField] private ScoreUpdater _scoreUpdater;
+    // [SerializeField] private TimerView _timerView;
 
     [Header("FOR DEBUGGING")] [SerializeField]
     private LevelConfig _levelConfig;
+    
     //loadingScreen
     private bool _isLoadingScreenFullAlpha;
     private bool _isStartLoadingScreen;
     private float _timePeriod;
     private float _alphaStep;
     //
-    
-    
-    public void StartLevel(LevelConfig levelConfig)
+
+    public void StartLevel()
     {
-        SetActiveWindow(levelConfig.levelType);
+        var levelType = GameBus.Instance.GetLevelType();
+        SetActiveScreen(levelType);
         
-        if (levelConfig.levelType != LevelType.Game)
+        if (levelType != screenType.Game)
             return;
         
-        _scoreUpdater.ResetScore();
-        _timerView.Init(levelConfig.time);
+        _gameScreenController.Init();
     }
     
     public void SetActiveLoadingScreen(bool isFullAlpha, float timePeriod = 1f)
@@ -49,15 +49,27 @@ public class UIManager : Singleton<UIManager>
         SetColorAlpha(_loadingImage, _loadingImage.color.a + _alphaStep * Time.deltaTime);
     }
 
-    public void StartLevelDebugging() => GameManager.Instance.StartLoadingNewLevel(_levelConfig);
+    public void StartLevelDebugging()
+    {
+        MatchManager.Instance.StartLoadingNewLevel(_levelConfig, screenType.Game);
+    }
 
+    public void HideAll()
+    {
+        _mainMenuController.Hide();
+        _gameScreenController.Hide();
+    }
 
-    public ScoreUpdater GetScoreUpdater() => _scoreUpdater;
-    
+    public void IncrementScore(TeamType _type)
+    {
+        _gameScreenController.IncrementScore(_type);
+    }
+
     private void Start()
     {
         SetColorAlpha(_loadingImage, 0f);
         _loadingImage.gameObject.SetActive(false);
+        SetActiveScreen(screenType.MainMenu);
     }
 
     private void Update() => LoadingScreenUpdater();
@@ -76,10 +88,22 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    private void SetActiveWindow(LevelType levelType)
+    private void SetActiveScreen(screenType screenType)
     {
-        foreach (var uiWindow in _windows) 
-            uiWindow.Window.SetActive(uiWindow.Type == levelType);
+        HideAll();
+        switch (screenType)
+        {
+            case screenType.MainMenu:
+                _mainMenuController.Show();
+                break;
+            case screenType.Game:
+                _gameScreenController.Show();
+                break;
+            case screenType.Shop:
+                break;
+            case screenType.Settings:
+                break;
+        }
     }
     
     private void SetColorAlpha(Image image, float newAlpha)
@@ -94,6 +118,6 @@ public class UIManager : Singleton<UIManager>
     public class UIWindow
     {
         public GameObject Window;
-        public LevelType Type;
+        public screenType Type;
     }
 }
