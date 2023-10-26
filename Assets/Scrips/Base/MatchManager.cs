@@ -68,9 +68,9 @@ public class MatchManager : Singleton<MatchManager>
         Debug.LogError($"{teamType} not founded. check GameManager");
     }
     
-    public void StartLoadingNewLevel(LevelConfig levelConfig, screenType screenType)
+    public void StartLoadingNewLevel(LevelConfig levelConfig, LevelType levelType)
     {
-        GameBus.Instance.SetLevel(levelConfig, screenType);
+        GameBus.Instance.SetLevel(levelConfig, levelType);
         
         _currentLevel = levelConfig;
         UIManager.Instance.OnLoadingScreenIsDone += FinishLoadingNewLevel;
@@ -99,15 +99,15 @@ public class MatchManager : Singleton<MatchManager>
         _activeLevel.transform.SetParent(null);
         
         UIManager.Instance.SetActiveLoadingScreen(false);
-        UIManager.Instance.StartLevel();
+        UIManager.Instance.StartLevel(GameBus.Instance.GetLevelType());
 
-        if (_currentLevel.time > 0)
-        {
-            if (_levelRoutine != null)
-                StopCoroutine(_levelRoutine);
+        if (_currentLevel.time <= 0)
+            return;
+        
+        if (_levelRoutine != null)
+            StopCoroutine(_levelRoutine);
 
-            _levelRoutine = StartCoroutine(LevelRoutine());
-        }
+        _levelRoutine = StartCoroutine(LevelRoutine());
     }
     
     public List<Ball> GetActiveBalls() => _activeBalls;
@@ -149,7 +149,7 @@ public class MatchManager : Singleton<MatchManager>
     private IEnumerator LevelRoutine()
     {
         yield return new WaitForSeconds(_currentLevel.time);
-        StartLoadingNewLevel(_initLevel, screenType.MainMenu);
+        StartLoadingNewLevel(_initLevel, LevelType.MainMenu);
     }
 }
 

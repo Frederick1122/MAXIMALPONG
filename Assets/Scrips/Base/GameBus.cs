@@ -11,7 +11,7 @@ public class GameBus : Singleton<GameBus>
 
     private bool _isContinuedGame;
     private LevelConfig _currentLevelConfig;
-    private screenType _currentScreenType = screenType.MainMenu;
+    private LevelType _currentLevelType = LevelType.MainMenu;
     
     public void EndGame()
     {
@@ -40,14 +40,14 @@ public class GameBus : Singleton<GameBus>
         return _currentLevelConfig;
     }
 
-    public screenType GetLevelType()
+    public LevelType GetLevelType()
     {
-        return _currentScreenType;
+        return _currentLevelType;
     }
 
-    public void SetLevel(LevelConfig newLevel, screenType newType)
+    public void SetLevel(LevelConfig newLevel, LevelType newType)
     {
-        _currentScreenType = newType;
+        _currentLevelType = newType;
         _currentLevelConfig = newLevel;
     }
     

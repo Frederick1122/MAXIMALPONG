@@ -25,15 +25,16 @@ public class UIManager : Singleton<UIManager>
     private float _alphaStep;
     //
 
-    public void StartLevel()
+    public void StartLevel(LevelType levelType)
     {
-        var levelType = GameBus.Instance.GetLevelType();
-        SetActiveScreen(levelType);
-        
-        if (levelType != screenType.Game)
-            return;
-        
-        _gameScreenController.Init();
+        var screenType = levelType switch
+        {
+            LevelType.MainMenu => ScreenType.MainMenu,
+            LevelType.Game => ScreenType.Game,
+            _ => ScreenType.MainMenu
+        };
+
+        SetActiveScreen(screenType);
     }
     
     public void SetActiveLoadingScreen(bool isFullAlpha, float timePeriod = 1f)
@@ -51,7 +52,7 @@ public class UIManager : Singleton<UIManager>
 
     public void StartLevelDebugging()
     {
-        MatchManager.Instance.StartLoadingNewLevel(_levelConfig, screenType.Game);
+        MatchManager.Instance.StartLoadingNewLevel(_levelConfig, LevelType.Game);
     }
 
     public void HideAll()
@@ -67,9 +68,12 @@ public class UIManager : Singleton<UIManager>
 
     private void Start()
     {
+        _gameScreenController.Init();
+        _mainMenuController.Init();
+        
         SetColorAlpha(_loadingImage, 0f);
         _loadingImage.gameObject.SetActive(false);
-        SetActiveScreen(screenType.MainMenu);
+        SetActiveScreen(ScreenType.MainMenu);
     }
 
     private void Update() => LoadingScreenUpdater();
@@ -88,20 +92,21 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    private void SetActiveScreen(screenType screenType)
+    private void SetActiveScreen(ScreenType screenType)
     {
         HideAll();
         switch (screenType)
         {
-            case screenType.MainMenu:
+            case ScreenType.MainMenu:
                 _mainMenuController.Show();
                 break;
-            case screenType.Game:
+            case ScreenType.Game:
                 _gameScreenController.Show();
+                _gameScreenController.StartNewLevel();
                 break;
-            case screenType.Shop:
+            case ScreenType.Shop:
                 break;
-            case screenType.Settings:
+            case ScreenType.Settings:
                 break;
         }
     }
@@ -118,6 +123,6 @@ public class UIManager : Singleton<UIManager>
     public class UIWindow
     {
         public GameObject Window;
-        public screenType Type;
+        public ScreenType Type;
     }
 }

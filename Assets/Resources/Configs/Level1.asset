@@ -15,6 +15,5 @@ MonoBehaviour:
   levelName: Level1
   ballCount: 3
   time: 10
-  levelType: 1
-  ballSpawnType: 0
+  ballSpawnType: 1
   gameType: 0
