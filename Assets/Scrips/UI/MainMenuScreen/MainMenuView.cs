@@ -10,9 +10,8 @@ public class MainMenuView : UIView<MainMenuModel>
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _settingsButton;
 
-    public override void Init(MainMenuModel uiModel)
+    public override void Init()
     {
-        base.Init(uiModel);
         _playButton.onClick.AddListener(StartGameAction.Invoke);
         _settingsButton.onClick.AddListener(OpenSettingsAction.Invoke);
     }

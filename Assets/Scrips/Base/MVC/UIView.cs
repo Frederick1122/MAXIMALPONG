@@ -18,7 +18,7 @@ public class UIView<T> : MonoBehaviour where T : UIModel
         }
     }
 
-    virtual public void Init(T uiModel)
+    virtual public void Init()
     {
 
     }

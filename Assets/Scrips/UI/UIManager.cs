@@ -5,19 +5,14 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
-    public Action OnLoadingScreenIsDone;
+    public event Action OnLoadingScreenIsDone;
     
     [SerializeField] private Image _loadingImage;
-    //[SerializeField] private List<UIWindow> _windows;
+    
     [SerializeField] private MainMenuController _mainMenuController;
     [SerializeField] private GameScreenController _gameScreenController; 
-    
-    // [SerializeField] private ScoreUpdater _scoreUpdater;
-    // [SerializeField] private TimerView _timerView;
+    [SerializeField] private EndScreenController _endScreenController;
 
-    [Header("FOR DEBUGGING")] [SerializeField]
-    private LevelConfig _levelConfig;
-    
     //loadingScreen
     private bool _isLoadingScreenFullAlpha;
     private bool _isStartLoadingScreen;
@@ -52,13 +47,7 @@ public class UIManager : Singleton<UIManager>
 
     public void StartLevelDebugging()
     {
-        MatchManager.Instance.StartLoadingNewLevel(_levelConfig, LevelType.Game);
-    }
-
-    public void HideAll()
-    {
-        _mainMenuController.Hide();
-        _gameScreenController.Hide();
+        LoadingManager.Instance.StartLoadingNewLevel(0);
     }
 
     public void IncrementScore(TeamType _type)
@@ -66,33 +55,7 @@ public class UIManager : Singleton<UIManager>
         _gameScreenController.IncrementScore(_type);
     }
 
-    private void Start()
-    {
-        _gameScreenController.Init();
-        _mainMenuController.Init();
-        
-        SetColorAlpha(_loadingImage, 0f);
-        _loadingImage.gameObject.SetActive(false);
-        SetActiveScreen(ScreenType.MainMenu);
-    }
-
-    private void Update() => LoadingScreenUpdater();
-
-    private void LoadingScreenUpdater()
-    {
-        if (_isStartLoadingScreen)
-        {
-            if (_loadingImage.color.a != 0 && _loadingImage.color.a != 1)
-                SetColorAlpha(_loadingImage, _loadingImage.color.a + _alphaStep * Time.deltaTime);
-            else
-            {
-                _isStartLoadingScreen = false;
-                OnLoadingScreenIsDone?.Invoke();
-            }
-        }
-    }
-
-    private void SetActiveScreen(ScreenType screenType)
+    public void SetActiveScreen(ScreenType screenType)
     {
         HideAll();
         switch (screenType)
@@ -108,6 +71,43 @@ public class UIManager : Singleton<UIManager>
                 break;
             case ScreenType.Settings:
                 break;
+            case ScreenType.EndMenu:
+                _endScreenController.Show();
+                break;
+        }
+    }
+
+    private void Start()
+    {
+        _gameScreenController.Init();
+        _mainMenuController.Init();
+        _endScreenController.Init();
+        
+        SetColorAlpha(_loadingImage, 0f);
+        _loadingImage.gameObject.SetActive(false);
+        SetActiveScreen(ScreenType.MainMenu);
+    }
+    
+    private void HideAll()
+    {
+        _mainMenuController.Hide();
+        _gameScreenController.Hide();
+        _endScreenController.Hide();
+    }
+    
+    private void Update() => LoadingScreenUpdater();
+
+    private void LoadingScreenUpdater()
+    {
+        if (_isStartLoadingScreen)
+        {
+            if (_loadingImage.color.a != 0 && _loadingImage.color.a != 1)
+                SetColorAlpha(_loadingImage, _loadingImage.color.a + _alphaStep * Time.deltaTime);
+            else
+            {
+                _isStartLoadingScreen = false;
+                OnLoadingScreenIsDone?.Invoke();
+            }
         }
     }
     
@@ -117,12 +117,5 @@ public class UIManager : Singleton<UIManager>
         var color = image.color;
         color.a = newAlpha;
         _loadingImage.color = color;
-    }
-    
-    [Serializable]
-    public class UIWindow
-    {
-        public GameObject Window;
-        public ScreenType Type;
     }
 }

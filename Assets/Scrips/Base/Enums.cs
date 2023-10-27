@@ -22,7 +22,8 @@ public enum ScreenType
     MainMenu,
     Game,
     Shop,
-    Settings
+    Settings,
+    EndMenu
 }
 
 public enum LevelType

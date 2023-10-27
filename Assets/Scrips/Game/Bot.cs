@@ -89,8 +89,9 @@ public class Bot : MonoBehaviour
     {
         _activeBalls = MatchManager.Instance.GetActiveBalls();
         
-            if (_findNearestBallCoroutine != null) 
+        if (_findNearestBallCoroutine != null) 
             StopCoroutine(_findNearestBallCoroutine);
+            
         _findNearestBallCoroutine = StartCoroutine(FindNearestBallRoutine());
     }
 

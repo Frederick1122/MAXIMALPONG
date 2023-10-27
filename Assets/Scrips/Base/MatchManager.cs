@@ -7,14 +7,8 @@ using Random = UnityEngine.Random;
 
 public class MatchManager : Singleton<MatchManager>
 {
-    private const string LEVELS_PATH = "Levels/";
-    
     public Action OnChangeActiveBallsAction;
-    [Header("Level")] 
-    [SerializeField] private LevelConfig _initLevel;
-    [Space]
-    [SerializeField] private GameObject _levelSpawnPoint;
-    [SerializeField] private GameObject _activeLevel;
+    
     [Space]
     [SerializeField] private List<Team> _teams;
     [Space]
@@ -23,9 +17,9 @@ public class MatchManager : Singleton<MatchManager>
     [SerializeField] private List<Ball> _activeBalls = new List<Ball>(); // balls in scene
     [SerializeField] private List<Ball> _ballPrefabs = new List<Ball>();
 
-    private LevelConfig _currentLevel;
     private Coroutine _levelRoutine;
-
+    private LevelConfig _currentLevel;
+    
     private void OnValidate() => UpdateFields();
 
     private void Start()
@@ -55,32 +49,19 @@ public class MatchManager : Singleton<MatchManager>
         if(teamType == TeamType.None)
             return;
 
+        UIManager.Instance.IncrementScore(teamType);
         foreach (var team in _teams)
         {
-            if (team.GetTeamType() == teamType)
-            {
-                team.Score++;
-                UIManager.Instance.IncrementScore(teamType);
-                return;
-            }
+            if (team.GetTeamType() != teamType)
+                continue;
+            
+            team.Score++;
+            return;
         }
-        
-        Debug.LogError($"{teamType} not founded. check GameManager");
     }
     
-    public void StartLoadingNewLevel(LevelConfig levelConfig, LevelType levelType)
+    public void FinishLevel()
     {
-        GameBus.Instance.SetLevel(levelConfig, levelType);
-        
-        _currentLevel = levelConfig;
-        UIManager.Instance.OnLoadingScreenIsDone += FinishLoadingNewLevel;
-        UIManager.Instance.SetActiveLoadingScreen(true);
-    }
-    
-    private void FinishLoadingNewLevel()
-    {
-        UIManager.Instance.OnLoadingScreenIsDone -= FinishLoadingNewLevel;
-
         var ballsCount = _activeBalls.Count;
         for (var i = 0; i < ballsCount; i++)
         {
@@ -91,23 +72,20 @@ public class MatchManager : Singleton<MatchManager>
         }
         
         _activeBalls = new List<Ball>();
-        
-        var newLevel = Resources.Load<GameObject>($"{LEVELS_PATH}{_currentLevel.levelName}");
-        Destroy(_activeLevel);
-        
-        _activeLevel = Instantiate(newLevel,_levelSpawnPoint.transform);
-        _activeLevel.transform.SetParent(null);
-        
-        UIManager.Instance.SetActiveLoadingScreen(false);
-        UIManager.Instance.StartLevel(GameBus.Instance.GetLevelType());
+    }
 
+    public void StartLevel(LevelConfig levelConfig)
+    {
+        _currentLevel = levelConfig;
+        
         if (_currentLevel.time <= 0)
             return;
         
         if (_levelRoutine != null)
             StopCoroutine(_levelRoutine);
 
-        _levelRoutine = StartCoroutine(LevelRoutine());
+        _levelRoutine = StartCoroutine(LevelRoutine(_currentLevel.time));
+        // _currentLevel.levelName
     }
     
     public List<Ball> GetActiveBalls() => _activeBalls;
@@ -127,6 +105,27 @@ public class MatchManager : Singleton<MatchManager>
         OnChangeActiveBallsAction?.Invoke();
     }
 
+    public bool HasPlayerWin()
+    {
+        var _playerScore = 0;
+        var _biggestScore = 0;
+        foreach (var team in _teams)
+        {
+            if (team.GetTeamType() == TeamType.Player)
+            {
+                if (team.Score < _biggestScore)
+                    return false;
+                
+                _playerScore = team.Score;                
+                continue;
+            }
+            
+            _biggestScore = team.Score > _biggestScore ? team.Score : _biggestScore;
+        }
+
+        return _playerScore > _biggestScore;
+    }
+    
     private void SpawnNewBall()
     {
         var newBall = Instantiate(_ballPrefabs[Random.Range(0, _ballPrefabs.Count)], _ballSpawnPoint);
@@ -146,10 +145,10 @@ public class MatchManager : Singleton<MatchManager>
         }
     }
 
-    private IEnumerator LevelRoutine()
+    private IEnumerator LevelRoutine(int time)
     {
-        yield return new WaitForSeconds(_currentLevel.time);
-        StartLoadingNewLevel(_initLevel, LevelType.MainMenu);
+        yield return new WaitForSeconds(time);
+        UIManager.Instance.SetActiveScreen(ScreenType.EndMenu);
     }
 }
 

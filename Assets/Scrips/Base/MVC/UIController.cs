@@ -16,7 +16,7 @@ public class UIController<T, T2> : MonoBehaviour where T : UIView<T2> where T2 :
 
     virtual public void Init()
     {
-
+        _view.Init();
     }
 
     virtual public void UpdateView()

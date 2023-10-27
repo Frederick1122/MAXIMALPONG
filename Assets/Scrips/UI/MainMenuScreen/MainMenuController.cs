@@ -5,7 +5,7 @@ public class MainMenuController : UIController<MainMenuView, MainMenuModel>
     {
         _view.OpenSettingsAction += OpenSettings;
         _view.StartGameAction += StartGame;
-        _view.Init(null);
+        base.Init();
     }
 
     private void StartGame()
