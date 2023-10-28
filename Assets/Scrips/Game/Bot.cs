@@ -75,12 +75,16 @@ public class Bot : MonoBehaviour
         float minDistance = 0;
         foreach (var ball in _activeBalls)
         {
-            if (Vector3.Angle(transform.right, ball.GetDirection()) < 90 || Vector3.Angle(transform.right, ball.transform.localPosition - transform.localPosition) > 90)
+            if (_nearestBall != null)
             {
-                if (ball.transform == _nearestBall)
-                    _nearestBall = null;
-                
-                continue;
+                if (Vector3.Angle(transform.right, ball.GetDirection()) < 90 || Vector3.Angle(transform.right,
+                        ball.transform.localPosition - transform.localPosition) > 90)
+                {
+                    if (ball.transform == _nearestBall)
+                        _nearestBall = null;
+
+                    continue;
+                }
             }
 
             var XDistance = transform.InverseTransformPoint(ball.transform.position).x;

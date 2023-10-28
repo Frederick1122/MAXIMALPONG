@@ -20,12 +20,8 @@ public class MatchManager : Singleton<MatchManager>
     private Coroutine _levelRoutine;
     private LevelConfig _currentLevel;
     
-    private void OnValidate() => UpdateFields();
-
     private void Start()
     {
-        UpdateFields();
-
         OnChangeActiveBallsAction?.Invoke();
     }
 
@@ -77,7 +73,8 @@ public class MatchManager : Singleton<MatchManager>
     public void StartLevel(LevelConfig levelConfig)
     {
         _currentLevel = levelConfig;
-        
+        GenerateFirstBalls();
+
         if (_currentLevel.time <= 0)
             return;
         
@@ -85,10 +82,23 @@ public class MatchManager : Singleton<MatchManager>
             StopCoroutine(_levelRoutine);
 
         _levelRoutine = StartCoroutine(LevelRoutine(_currentLevel.time));
-        // _currentLevel.levelName
     }
     
-    public List<Ball> GetActiveBalls() => _activeBalls;
+    public List<Ball> GetActiveBalls()
+    {
+        var activeBalls = new List<Ball>();
+        foreach (var ball in _activeBalls)
+        {
+            if(ball == null)
+                continue;
+            
+            activeBalls.Add(ball);
+        }
+
+        _activeBalls = activeBalls;
+        
+        return _activeBalls;
+    }
 
     public void DestroyBall(Ball ball)
     {
@@ -132,17 +142,21 @@ public class MatchManager : Singleton<MatchManager>
         newBall.transform.parent = null;
     }
     
-    private void UpdateFields()
+    private void GenerateFirstBalls()
     {
+        _activeBalls.Clear();
+        
         if (_activeBalls.Count == 0)
         {
-            var balls = FindObjectsOfType(typeof(Ball));
-            if (balls.Length == 0)
+            var ballSpawners = FindObjectsOfType(typeof(BallSpawner));
+            if (ballSpawners.Length == 0)
                 Debug.LogError("Active ball not found in scene");
 
-            foreach (var ball in balls)
-                _activeBalls.Add((Ball) ball);
-        }
+            foreach (var ballSpawner in ballSpawners)
+                _activeBalls.Add(((BallSpawner) ballSpawner).GenerateBall());
+        }   
+        
+        OnChangeActiveBallsAction?.Invoke();
     }
 
     private IEnumerator LevelRoutine(int time)

@@ -42,10 +42,9 @@ public class LoadingManager : Singleton<LoadingManager>
         MatchManager.Instance.FinishLevel();
         
         var newLevel = Resources.Load<GameObject>($"{LEVELS_PATH}{_currentLevel.levelName}");
-        Destroy(_activeLevel);
+        DestroyImmediate(_activeLevel);
         
         _activeLevel = Instantiate(newLevel, _levelSpawnPoint.transform);
-        //_activeLevel.transform.SetParent(null);
         
         UIManager.Instance.SetActiveLoadingScreen(false);
         UIManager.Instance.StartLevel(GameBus.Instance.GetLevelType());
