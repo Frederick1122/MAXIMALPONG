@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -124,15 +123,15 @@ public class Bot : MonoBehaviour
                 if (_nearestBall != null)
                 {
                     Gizmos.color = Color.white;
-                    Gizmos.DrawSphere( _nearestBallProjection, 0.1f);
+                    Gizmos.DrawSphere(_nearestBallProjection, 0.1f);
 
                     Gizmos.color = Color.red;
                     var newX = new Vector3(transform.InverseTransformPoint(_nearestBall.position).x, 0, 0) ;
-                    Gizmos.DrawSphere( transform.TransformPoint(newX), 0.1f);
+                    Gizmos.DrawSphere(transform.TransformPoint(newX), 0.1f);
                 }
 
-                Debug.DrawLine( transform.TransformPoint(_minColliderBounds), _minColliderBounds + _nearestBall.transform.position, Color.red);
-                Debug.DrawLine(transform.TransformPoint(_maxColliderBounds), _maxColliderBounds + _nearestBall.transform.position, Color.red);
+                Debug.DrawLine( transform.TransformPoint(_minColliderBounds * transform.right.x), _minColliderBounds + _nearestBall.transform.position, Color.red);
+                Debug.DrawLine(transform.TransformPoint(_maxColliderBounds * transform.right.x), _maxColliderBounds + _nearestBall.transform.position, Color.red);
                 Debug.DrawLine(transform.position, _nearestBall.transform.position, Color.red);
             }
         }

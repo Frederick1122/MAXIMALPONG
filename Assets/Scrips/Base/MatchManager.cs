@@ -149,6 +149,7 @@ public class MatchManager : Singleton<MatchManager>
     {
         yield return new WaitForSeconds(time);
         UIManager.Instance.SetActiveScreen(ScreenType.EndMenu);
+        FinishLevel();
     }
 }
 

@@ -85,7 +85,7 @@ public class UIManager : Singleton<UIManager>
         
         SetColorAlpha(_loadingImage, 0f);
         _loadingImage.gameObject.SetActive(false);
-        SetActiveScreen(ScreenType.MainMenu);
+        HideAll();
     }
     
     private void HideAll()

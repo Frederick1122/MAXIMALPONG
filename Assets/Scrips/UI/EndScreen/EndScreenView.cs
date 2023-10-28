@@ -1,4 +1,5 @@
 using System;
+using Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class EndScreenView : UIView<EndScreenModel>
 
     [SerializeField] private Color _winColor;
     [SerializeField] private Color _loseColor;
-    
+
     public override void UpdateView(EndScreenModel uiModel)
     {
         base.UpdateView(uiModel);
