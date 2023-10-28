@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -74,6 +75,14 @@ public class Bot : MonoBehaviour
         float minDistance = 0;
         foreach (var ball in _activeBalls)
         {
+            if (Vector3.Angle(transform.right, ball.GetDirection()) < 90 || Vector3.Angle(transform.right, ball.transform.localPosition - transform.localPosition) > 90)
+            {
+                if (ball.transform == _nearestBall)
+                    _nearestBall = null;
+                
+                continue;
+            }
+
             var XDistance = transform.InverseTransformPoint(ball.transform.position).x;
             
             if (minDistance == 0 || XDistance < minDistance)
@@ -107,6 +116,8 @@ public class Bot : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        Debug.DrawLine(transform.position, transform.position + transform.forward, Color.blue);
+        Debug.DrawLine(transform.position, transform.position + transform.right, Color.black);
         if (Application.isPlaying)
         {
             if (_nearestBall != null)
@@ -129,7 +140,7 @@ public class Bot : MonoBehaviour
                     var newX = new Vector3(transform.InverseTransformPoint(_nearestBall.position).x, 0, 0) ;
                     Gizmos.DrawSphere(transform.TransformPoint(newX), 0.1f);
                 }
-
+                
                 Debug.DrawLine( transform.TransformPoint(_minColliderBounds * transform.right.x), _minColliderBounds + _nearestBall.transform.position, Color.red);
                 Debug.DrawLine(transform.TransformPoint(_maxColliderBounds * transform.right.x), _maxColliderBounds + _nearestBall.transform.position, Color.red);
                 Debug.DrawLine(transform.position, _nearestBall.transform.position, Color.red);

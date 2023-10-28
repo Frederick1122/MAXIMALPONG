@@ -16,6 +16,11 @@ public class Ball : MonoBehaviour
     private Rigidbody _rigidbody;
     private TeamType _preLastPunch = TeamType.None;
     private TeamType _lastPunch = TeamType.None;
+
+    public Vector3 GetDirection()
+    {
+        return _direction;
+    }
     
     private void OnCollisionEnter(Collision collision)
     {
