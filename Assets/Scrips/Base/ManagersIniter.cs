@@ -8,6 +8,6 @@ public class ManagersIniter : MonoBehaviour
         DontDestroyOnLoad(this);
         SceneManager.LoadScene(1);
         
-        LoadingManager.Instance.StartLoadingNewLevel();
+        LoadingManager.Instance.StartLoadingMainMenu();
     }
 }

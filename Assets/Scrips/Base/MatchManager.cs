@@ -70,6 +70,11 @@ public class MatchManager : Singleton<MatchManager>
         }
         
         _activeBalls = new List<Ball>();
+
+        if (!HasPlayerWin())
+            return;
+        
+        SaveManager.Instance.LevelsSaveData.Save(LoadingManager.Instance.GetCurrentLevel() + 2);
     }
 
     public void StartLevel(LevelConfig levelConfig)

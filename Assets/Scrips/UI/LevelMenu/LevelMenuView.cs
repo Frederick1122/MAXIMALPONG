@@ -9,10 +9,12 @@ public class LevelMenuView : UIView<LevelMenuModel>
     public event Action<int> onLaunchLevel;
     public event Action onLaunchCustomLevel;
     public event Action onLaunchLocalMultiplayer;
+    public event Action onBackToMainMenu;
     
     [SerializeField] private List<CustomButton> _levels;
     [SerializeField] private CustomButton _customLevel;
     [SerializeField] private CustomButton _localMultiplayer;
+    [SerializeField] private CustomButton _backToMainMenu;
 
     public override void Init()
     {
@@ -24,6 +26,7 @@ public class LevelMenuView : UIView<LevelMenuModel>
 
         _customLevel.OnClickButton += onLaunchCustomLevel;
         _localMultiplayer.OnClickButton += onLaunchLocalMultiplayer;
+        _backToMainMenu.OnClickButton += onBackToMainMenu;
     }
 
     private void OnDestroy()
@@ -33,6 +36,9 @@ public class LevelMenuView : UIView<LevelMenuModel>
 
         if(_localMultiplayer != null)
             _localMultiplayer.OnClickButton -= onLaunchLocalMultiplayer;
+        
+        if(_backToMainMenu != null)
+            _backToMainMenu.OnClickButton -= onBackToMainMenu;
     }
 
     public override void UpdateView(LevelMenuModel uiModel)

@@ -14,20 +14,32 @@ public class LoadingManager : Singleton<LoadingManager>
     [SerializeField] private GameObject _levelSpawnPoint;
     
     private LevelConfig _currentLevel;
+    private int _currentLevelIndex;
 
-    public LevelConfig GetCurrentLevel()
+    public int GetCurrentLevel()
     {
-        return _currentLevel;
+        return _currentLevelIndex;
     }
 
     public void StartLoadingNewLevel(int levelNumber)
     {
+        if (levelNumber >= _levels.Count)
+        {
+            Debug.LogError($"Loading manager not found level with index: {levelNumber}. Level count: {_levels.Count}");
+            return;
+        }
+        
+        _currentLevelIndex = levelNumber;
         StartLoadingNewLevel(_levels[levelNumber], LevelType.Game);
     }
-    
-    public void StartLoadingNewLevel(LevelConfig levelConfig = null, LevelType levelType = LevelType.MainMenu)
+
+    public void StartLoadingMainMenu()
     {
-        levelConfig ??= _initLevel;
+        StartLoadingNewLevel(_initLevel, LevelType.MainMenu);
+    }
+    
+    private void StartLoadingNewLevel(LevelConfig levelConfig, LevelType levelType)
+    {
         GameBus.Instance.SetLevel(levelConfig, levelType);
         
         _currentLevel = levelConfig;

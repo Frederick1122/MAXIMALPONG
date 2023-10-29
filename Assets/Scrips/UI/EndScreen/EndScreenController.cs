@@ -27,6 +27,6 @@ public class EndScreenController : UIController<EndScreenView, EndScreenModel>
 
     private void GoToMainMenu()
     {
-        LoadingManager.Instance.StartLoadingNewLevel();
+        LoadingManager.Instance.StartLoadingMainMenu();
     }
 }

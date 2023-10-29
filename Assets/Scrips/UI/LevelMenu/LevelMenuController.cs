@@ -6,10 +6,11 @@ public class LevelMenuController : UIController<LevelMenuView, LevelMenuModel>
     
     public override void Init()
     {
-        base.Init();
         _view.onLaunchLevel += TryLaunchLevel;
         _view.onLaunchCustomLevel += LaunchCustomLevel;
         _view.onLaunchLocalMultiplayer += LaunchLocalMultiplayer;
+        _view.onBackToMainMenu += BackToMainMenu;
+        base.Init();
     }
 
     private void OnDestroy()
@@ -20,6 +21,7 @@ public class LevelMenuController : UIController<LevelMenuView, LevelMenuModel>
         _view.onLaunchLevel -= TryLaunchLevel;
         _view.onLaunchCustomLevel -= LaunchCustomLevel;
         _view.onLaunchLocalMultiplayer -= LaunchLocalMultiplayer;
+        _view.onBackToMainMenu -= BackToMainMenu;
     }
 
     public override void Show()
@@ -45,5 +47,10 @@ public class LevelMenuController : UIController<LevelMenuView, LevelMenuModel>
     private void LaunchLocalMultiplayer()
     {
         
+    }
+
+    private void BackToMainMenu()
+    {
+        UIManager.Instance.SetActiveScreen(ScreenType.MainMenu);
     }
 }
