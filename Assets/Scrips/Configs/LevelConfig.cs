@@ -8,7 +8,6 @@ public class LevelConfig : ScriptableObject
     public int ballCount;
     public int time;
     [Space]
-    // public LevelType levelType;
     public BallSpawnType ballSpawnType;
     public GameType gameType;
 }

@@ -18,7 +18,9 @@ public class MatchManager : Singleton<MatchManager>
     [SerializeField] private List<Ball> _ballPrefabs = new List<Ball>();
 
     private Coroutine _levelRoutine;
+    private Coroutine _generateFirstBallsRoutine;
     private LevelConfig _currentLevel;
+    private YieldInstruction _second = new WaitForSeconds(1f);
     
     private void Start()
     {
@@ -145,18 +147,11 @@ public class MatchManager : Singleton<MatchManager>
     private void GenerateFirstBalls()
     {
         _activeBalls.Clear();
-        
-        if (_activeBalls.Count == 0)
-        {
-            var ballSpawners = FindObjectsOfType(typeof(BallSpawner));
-            if (ballSpawners.Length == 0)
-                Debug.LogError("Active ball not found in scene");
 
-            foreach (var ballSpawner in ballSpawners)
-                _activeBalls.Add(((BallSpawner) ballSpawner).GenerateBall());
-        }   
-        
-        OnChangeActiveBallsAction?.Invoke();
+        if (_generateFirstBallsRoutine != null) 
+            StopCoroutine(_generateFirstBallsRoutine);
+
+        _generateFirstBallsRoutine = StartCoroutine(GenerateFirstBallsRoutine());
     }
 
     private IEnumerator LevelRoutine(int time)
@@ -164,6 +159,16 @@ public class MatchManager : Singleton<MatchManager>
         yield return new WaitForSeconds(time);
         UIManager.Instance.SetActiveScreen(ScreenType.EndMenu);
         FinishLevel();
+    }
+
+    private IEnumerator GenerateFirstBallsRoutine()
+    {
+        for (int i = 0; i < _currentLevel.ballCount; i++)
+        {
+            SpawnNewBall();
+            OnChangeActiveBallsAction?.Invoke();
+            yield return _second;
+        }
     }
 }
 
