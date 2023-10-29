@@ -1,14 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
 public class Bot : MonoBehaviour
 {
-    [SerializeField] private float _speed = 200f;
     [SerializeField] private float _maxDistance = 25f;
+    
     private List<Ball> _activeBalls = new List<Ball>();
     private Transform _nearestBall = null;
 
@@ -18,11 +16,13 @@ public class Bot : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private BoxCollider _boxCollider;
+    private int _speed = 200;
 
     private void Start()
     {
         MatchManager.Instance.OnChangeActiveBallsAction += UpdateActiveBalls;
-
+        _speed = LoadingManager.Instance.GetCurrentLevel().botSpeed;
+        
         _rigidbody = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
 

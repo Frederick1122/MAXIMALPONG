@@ -41,8 +41,8 @@ public class MatchManager : Singleton<MatchManager>
             _ => teamType
         };
 
-        if (_currentLevel.ballSpawnType == BallSpawnType.ByScore) 
-            SpawnNewBall();
+        //if (_currentLevel.ballSpawnType == BallSpawnType.ByScore)
+        SpawnNewBall();
         
         if(teamType == TeamType.None)
             return;
@@ -74,7 +74,7 @@ public class MatchManager : Singleton<MatchManager>
         if (!HasPlayerWin())
             return;
         
-        SaveManager.Instance.LevelsSaveData.Save(LoadingManager.Instance.GetCurrentLevel() + 2);
+        SaveManager.Instance.LevelsSaveData.Save(LoadingManager.Instance.GetCurrentLevelIndex() + 2);
     }
 
     public void StartLevel(LevelConfig levelConfig)

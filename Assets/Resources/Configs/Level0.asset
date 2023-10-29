@@ -15,6 +15,5 @@ MonoBehaviour:
   levelName: Level0
   ballCount: 2
   time: 0
-  levelType: 0
-  ballSpawnType: 1
   gameType: 0
+  botSpeed: 250

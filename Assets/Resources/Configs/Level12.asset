@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8af9357fd16f48547aa34a3ddd1e20c7, type: 3}
-  m_Name: Level1
+  m_Name: Level12
   m_EditorClassIdentifier: 
   levelName: Level1
-  ballCount: 1
-  time: 30
+  ballCount: 3
+  time: 180
   gameType: 0
-  botSpeed: 250
+  botSpeed: 400

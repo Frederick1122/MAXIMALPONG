@@ -8,6 +8,9 @@ public class LevelConfig : ScriptableObject
     public int ballCount;
     public int time;
     [Space]
-    public BallSpawnType ballSpawnType;
+    //public BallSpawnType ballSpawnType;
     public GameType gameType;
+
+    [Space] [Header("Bot settings")] 
+    public int botSpeed = 200;
 }

@@ -46,13 +46,9 @@ public class LevelMenuView : UIView<LevelMenuModel>
         for (int i = 0; i < _levels.Count; i++)
         {
             if (i < uiModel.lastOpenLevel)
-            {
-                _levels[i].SetText($"Level {i}");
-            }
+                _levels[i].SetText($"Level {i + 1}");
             else
-            {
                 _levels[i].SetIcon(UI_LOCKED_LEVEL);
-            }
         }
     }
 }

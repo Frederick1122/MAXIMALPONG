@@ -16,9 +16,14 @@ public class LoadingManager : Singleton<LoadingManager>
     private LevelConfig _currentLevel;
     private int _currentLevelIndex;
 
-    public int GetCurrentLevel()
+    public int GetCurrentLevelIndex()
     {
         return _currentLevelIndex;
+    }
+    
+    public LevelConfig GetCurrentLevel()
+    {
+        return _currentLevel;
     }
 
     public void StartLoadingNewLevel(int levelNumber)
