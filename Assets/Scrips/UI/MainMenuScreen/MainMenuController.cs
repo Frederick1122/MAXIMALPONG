@@ -10,7 +10,7 @@ public class MainMenuController : UIController<MainMenuView, MainMenuModel>
 
     private void StartGame()
     {
-        UIManager.Instance.StartLevelDebugging();        
+        UIManager.Instance.SetActiveScreen(ScreenType.LevelMenu);        
     }
 
     private void OpenSettings()

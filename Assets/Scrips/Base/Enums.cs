@@ -23,6 +23,7 @@ public enum ScreenType
     Game,
     Shop,
     Settings,
+    LevelMenu,
     EndMenu
 }
 

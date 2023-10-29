@@ -12,6 +12,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private MainMenuController _mainMenuController;
     [SerializeField] private GameScreenController _gameScreenController; 
     [SerializeField] private EndScreenController _endScreenController;
+    [SerializeField] private LevelMenuController _levelMenuController;
 
     //loadingScreen
     private bool _isLoadingScreenFullAlpha;
@@ -39,7 +40,7 @@ public class UIManager : Singleton<UIManager>
         _isStartLoadingScreen = true;
         
         var multiplier = _isLoadingScreenFullAlpha ? 1f : -1f;
-        _alphaStep = multiplier / (_timePeriod);
+        _alphaStep = multiplier / _timePeriod;
         
         _loadingImage.gameObject.SetActive(_isLoadingScreenFullAlpha);
         SetColorAlpha(_loadingImage, _loadingImage.color.a + _alphaStep * Time.deltaTime);
@@ -71,6 +72,9 @@ public class UIManager : Singleton<UIManager>
                 break;
             case ScreenType.Settings:
                 break;
+            case ScreenType.LevelMenu:
+                _levelMenuController.Show();
+                break;
             case ScreenType.EndMenu:
                 _endScreenController.Show();
                 break;
@@ -82,6 +86,7 @@ public class UIManager : Singleton<UIManager>
         _gameScreenController.Init();
         _mainMenuController.Init();
         _endScreenController.Init();
+        _levelMenuController.Init();
         
         SetColorAlpha(_loadingImage, 0f);
         _loadingImage.gameObject.SetActive(false);
@@ -93,6 +98,7 @@ public class UIManager : Singleton<UIManager>
         _mainMenuController.Hide();
         _gameScreenController.Hide();
         _endScreenController.Hide();
+        _levelMenuController.Hide();
     }
     
     private void Update() => LoadingScreenUpdater();
