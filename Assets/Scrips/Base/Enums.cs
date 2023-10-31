@@ -24,6 +24,7 @@ public enum ScreenType
     Shop,
     Settings,
     LevelMenu,
+    CustomLevelMenu,
     EndMenu
 }
 

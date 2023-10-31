@@ -16,4 +16,4 @@ MonoBehaviour:
   ballCount: 2
   time: 0
   gameType: 0
-  botSpeed: 250
+  botSpeed: 600

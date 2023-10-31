@@ -4,6 +4,8 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Rigidbody))]
 public class Ball : MonoBehaviour
 {
+    [SerializeField] private Material _baseMaterial;
+    
     [SerializeField] private float _deviation = 0.5f;
     [Space]
     [SerializeField] private float _speed = 1f;
@@ -38,7 +40,8 @@ public class Ball : MonoBehaviour
             {
                 if(_lastPunch != _preLastPunch)
                     _preLastPunch = _lastPunch;
-                
+
+                GetComponent<MeshRenderer>().material = _baseMaterial;
                 _lastPunch = ballStopper.TeamType;
             }
 

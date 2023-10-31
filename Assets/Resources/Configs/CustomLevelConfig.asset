@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca962b59bf04f9087c01d4998b580c8, type: 3}
+  m_Name: CustomLevelConfig
+  m_EditorClassIdentifier: 
+  timeSliderData:
+    name: Game time
+    minValue: 30
+    maxValue: 180
+    steps: 5
+  complexitySliderData:
+    name: Bot complexity
+    minValue: 1
+    maxValue: 5
+    steps: 4
+  ballQuantitySliderData:
+    name: Ball quantity
+    minValue: 1
+    maxValue: 4
+    steps: 3

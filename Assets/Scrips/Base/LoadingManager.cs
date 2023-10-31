@@ -38,6 +38,11 @@ public class LoadingManager : Singleton<LoadingManager>
         StartLoadingNewLevel(_levels[levelNumber], LevelType.Game);
     }
 
+    public void StartLoadingNewLevel(LevelConfig levelConfig)
+    {
+        StartLoadingNewLevel(levelConfig, LevelType.Game);
+    }
+    
     public void StartLoadingMainMenu()
     {
         StartLoadingNewLevel(_initLevel, LevelType.MainMenu);

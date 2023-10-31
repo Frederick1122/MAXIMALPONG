@@ -41,12 +41,14 @@ public class LevelMenuController : UIController<LevelMenuView, LevelMenuModel>
 
     private void LaunchCustomLevel()
     {
-        
+        UIManager.Instance.SetLocalMultiplayerStage(false);
+        UIManager.Instance.SetActiveScreen(ScreenType.CustomLevelMenu);
     }
 
     private void LaunchLocalMultiplayer()
     {
-        
+        UIManager.Instance.SetLocalMultiplayerStage(true);
+        UIManager.Instance.SetActiveScreen(ScreenType.CustomLevelMenu);
     }
 
     private void BackToMainMenu()

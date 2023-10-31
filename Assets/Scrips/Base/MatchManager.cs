@@ -71,7 +71,7 @@ public class MatchManager : Singleton<MatchManager>
         
         _activeBalls = new List<Ball>();
 
-        if (!HasPlayerWin())
+        if (!HasPlayerWin() || _currentLevel.isCustomLevel)
             return;
         
         SaveManager.Instance.LevelsSaveData.Save(LoadingManager.Instance.GetCurrentLevelIndex() + 2);

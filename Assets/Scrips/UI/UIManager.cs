@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameScreenController _gameScreenController; 
     [SerializeField] private EndScreenController _endScreenController;
     [SerializeField] private LevelMenuController _levelMenuController;
+    [SerializeField] private CustomLoadingScreenController _customLevelMenuController;
 
     //loadingScreen
     private bool _isLoadingScreenFullAlpha;
@@ -56,6 +57,11 @@ public class UIManager : Singleton<UIManager>
         _gameScreenController.IncrementScore(_type);
     }
 
+    public void SetLocalMultiplayerStage(bool isLocalMultiplayer)
+    {
+        _customLevelMenuController.SetLocalMultiplayerStage(isLocalMultiplayer);
+    }
+
     public void SetActiveScreen(ScreenType screenType)
     {
         HideAll();
@@ -75,6 +81,9 @@ public class UIManager : Singleton<UIManager>
             case ScreenType.LevelMenu:
                 _levelMenuController.Show();
                 break;
+            case ScreenType.CustomLevelMenu:
+                _customLevelMenuController.Show();
+                break;
             case ScreenType.EndMenu:
                 _endScreenController.Show();
                 break;
@@ -87,6 +96,7 @@ public class UIManager : Singleton<UIManager>
         _mainMenuController.Init();
         _endScreenController.Init();
         _levelMenuController.Init();
+        _customLevelMenuController.Init();
         
         SetColorAlpha(_loadingImage, 0f);
         _loadingImage.gameObject.SetActive(false);
@@ -99,6 +109,7 @@ public class UIManager : Singleton<UIManager>
         _gameScreenController.Hide();
         _endScreenController.Hide();
         _levelMenuController.Hide();
+        _customLevelMenuController.Hide();
     }
     
     private void Update() => LoadingScreenUpdater();
