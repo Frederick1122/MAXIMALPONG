@@ -122,13 +122,22 @@ public class MatchManager : Singleton<MatchManager>
         OnChangeActiveBallsAction?.Invoke();
     }
 
+    public int GetScore(TeamType teamType)
+    {
+        foreach (var team in _teams)
+            if (team.GetTeamType() == teamType)
+                return team.Score;
+
+        return 0;
+    }
+
     public bool HasPlayerWin()
     {
         var _playerScore = 0;
         var _biggestScore = 0;
         foreach (var team in _teams)
         {
-            if (team.GetTeamType() == TeamType.Player)
+            if (team.GetTeamType() == TeamType.Player1)
             {
                 if (team.Score < _biggestScore)
                     return false;

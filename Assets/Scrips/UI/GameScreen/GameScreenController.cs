@@ -17,26 +17,28 @@ public class GameScreenController : UIController<GameScreenView, GameScreenModel
         {
             _model.teamScores.Add(teamType, 1);
         }
+
+        _view.UpdateView(_model);
     }
 
     public void StartNewLevel()
     {
-        if(GameBus.Instance.GetLevelType() == LevelType.MainMenu)
+        if (GameBus.Instance.GetLevelType() == LevelType.MainMenu)
             return;
 
         var level = GameBus.Instance.GetLevelConfig();
-        
+
         _model = new GameScreenModel();
         _model.remainingTime = level.time;
-        
-        if(_timerRoutine != null)
+
+        if (_timerRoutine != null)
             StopCoroutine(_timerRoutine);
-        
+
         _view.ResetScore();
         _view.UpdateView(_model);
         _timerRoutine = StartCoroutine(TimerRoutine());
     }
-    
+
     private IEnumerator TimerRoutine()
     {
         while (_model.remainingTime > 0)

@@ -12,7 +12,17 @@ public class GameScreenView : UIView<GameScreenModel>
     {
         SetTime(uiModel.remainingTime);
         foreach (var teamScore in uiModel.teamScores)
-            _teams.Find(team => team.TeamType == teamScore.Key).Text.text = teamScore.Value.ToString();
+        {
+            foreach (var team in _teams)
+            {
+                var teamType = team.TeamTypes.Find(type => type == teamScore.Key);
+                if (teamType == TeamType.None)
+                    continue;
+                
+                team.Text.text = teamScore.Value.ToString();
+                break;
+            }
+        }
     }
 
     private void SetTime(int time)
@@ -30,7 +40,7 @@ public class GameScreenView : UIView<GameScreenModel>
 [Serializable]
 internal class TeamText
 {
-    public TeamType TeamType;
+    public List<TeamType> TeamTypes;
     public TMP_Text Text;
 }
 

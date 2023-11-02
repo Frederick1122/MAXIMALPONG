@@ -17,16 +17,8 @@ public class EndScreenView : UIView<EndScreenModel>
     public override void UpdateView(EndScreenModel uiModel)
     {
         base.UpdateView(uiModel);
-        if (uiModel.isWinner)
-        {
-            _result.text = "Win";
-            _result.color = _winColor;
-        }
-        else
-        {
-            _result.text = "Lose";
-            _result.color = _loseColor;
-        }
+        _result.color = uiModel.isWinner ? _winColor : _loseColor;
+        _result.text = uiModel.endText;
     }
 
     public override void Init()
@@ -43,5 +35,6 @@ public class EndScreenView : UIView<EndScreenModel>
 
 public class EndScreenModel : UIModel
 {
+    public string endText;
     public bool isWinner;
 }

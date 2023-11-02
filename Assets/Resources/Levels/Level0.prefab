@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 2766581043732587933}
   - component: {fileID: 2766581043732587932}
   m_Layer: 9
-  m_Name: Enemy (1)
+  m_Name: Enemy_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,7 +350,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2543930042327589106}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &2766581043732587921
 MeshFilter:
@@ -443,7 +443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29a103a083e7a34c9153dfac42dd074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 600
   _maxDistance: 30
 --- !u!114 &2766581043732587932
 MonoBehaviour:
@@ -458,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplier: 1.2
-  TeamType: 2
+  TeamType: 1
   IsPlane: 0
 --- !u!1 &2766581043873073504
 GameObject:
@@ -701,7 +700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29a103a083e7a34c9153dfac42dd074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 600
   _maxDistance: 30
 --- !u!114 &2766581044016906774
 MonoBehaviour:
@@ -716,7 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplier: 1.2
-  TeamType: 2
+  TeamType: 3
   IsPlane: 0
 --- !u!1 &2766581044286222405
 GameObject:
@@ -865,7 +863,7 @@ Transform:
   - {fileID: 2766581044731198347}
   - {fileID: 2766581045121321628}
   m_Father: {fileID: 2543930042327589106}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2766581044731198388
 GameObject:
@@ -1108,8 +1106,8 @@ Transform:
   - {fileID: 2766581043873073508}
   - {fileID: 2766581043565515237}
   - {fileID: 2766581044016906768}
-  - {fileID: 2766581044512486526}
   - {fileID: 2766581043732587926}
+  - {fileID: 2766581044512486526}
   - {fileID: 7459304190782691292}
   - {fileID: 8089302079861053938}
   m_Father: {fileID: 0}

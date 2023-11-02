@@ -1,7 +1,8 @@
 ﻿public enum TeamType
 {
     None,
-    Player,
+    Player1,
+    Player2,
     Bot1
 }
 

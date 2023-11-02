@@ -1,8 +1,9 @@
-using System;
 using UnityEngine;
 
 public class CustomLoadingScreenController : UIController<CustomLoadingScreenView, CustomLoadingScreenModel>
 {
+    private const string LOCAL_MULTIPLAYER_LEVEL_NAME = "LevelLocalMultiplayer";
+    
     [SerializeField] private CustomLevelConfig _config;
     private CustomLoadingScreenModel _model;
 
@@ -67,6 +68,11 @@ public class CustomLoadingScreenController : UIController<CustomLoadingScreenVie
     private void LaunchCustomLevel()
     {
         var levelConfig = ScriptableObject.CreateInstance<LevelConfig>();
+        if (_model.isLocalMultiplayer)
+        {
+            levelConfig.levelName = LOCAL_MULTIPLAYER_LEVEL_NAME;
+            levelConfig.isLocalMultiplayer = true;
+        }
         levelConfig.time = _time;
         levelConfig.botSpeed = 200 * _botComplexity;
         levelConfig.ballCount = _ballQuantity;

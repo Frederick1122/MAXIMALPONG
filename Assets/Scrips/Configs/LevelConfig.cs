@@ -14,4 +14,5 @@ public class LevelConfig : ScriptableObject
     public int botSpeed = 200;
     
     [HideInInspector] public bool isCustomLevel = false;
+    [HideInInspector] public bool isLocalMultiplayer = false;
 }
