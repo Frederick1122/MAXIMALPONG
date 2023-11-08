@@ -15,7 +15,7 @@ public class MainMenuController : UIController<MainMenuView, MainMenuModel>
 
     private void OpenSettings()
     {
-        
+        UIManager.Instance.SetActiveScreen(ScreenType.Settings);
     }
     
     private void OnDestroy()

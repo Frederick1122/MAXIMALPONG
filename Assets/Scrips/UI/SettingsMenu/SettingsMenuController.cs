@@ -1,37 +1,38 @@
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class SettingsMenuController : UIController<SettingsMenuView, SettingsMenuModel>
 {
-    private const string MUSIC_PARAM = "MusicVolume";
-    private const string EFFECTS_PARAM = "EffectsVolume";
+
     private const string UI_PARAM = "UIVolume";
 
-    [SerializeField] private AudioMixer _mixer;
-
+    
+    private AudioMixer _mixer;
     private SettingsMenuModel _model;
 
     public override void Init()
     {
-        base.Init();
-
         // Load values
+        _mixer = SoundManager.Instance.GetMixer();
         _model = SaveManager.Instance.SettingsSaveData.Load();
 
-        _view.EffectsSlider.OnValueChanged += UpdateSound;
-        _view.MusicSlider.OnValueChanged += UpdateSound;
+        _view.OnChangeMusicParameter += UpdateMusic;
+        _view.OnChangeEffectParameter += UpdateEffects;
 
         UpdateSound(SliderType.Music, _model.musicVolume);
         UpdateSound(SliderType.Effects, _model.effectsVolume);
 
-        _view.Init();
+        base.Init();
     }
 
-    private void LoadParametres(SettingsMenuModel from)
+    private void OnDestroy()
     {
-        _model = new();
-        _model.musicVolume = from.musicVolume;
-        _model.effectsVolume = from.effectsVolume;
+        if(_view == null)
+            return;
+        
+        _view.OnChangeMusicParameter -= UpdateMusic;
+        _view.OnChangeEffectParameter -= UpdateEffects;
     }
 
     public override void Show()
@@ -46,7 +47,9 @@ public class SettingsMenuController : UIController<SettingsMenuView, SettingsMen
         // Save Params
         base.Hide();
         _view.OnViewClose -= Hide;
-        SaveManager.Instance.SettingsSaveData.Save(_model);
+        
+        if(_model != null)
+            SaveManager.Instance.SettingsSaveData.Save(_model);
     }
 
     public override void UpdateView()
@@ -55,20 +58,21 @@ public class SettingsMenuController : UIController<SettingsMenuView, SettingsMen
         _view.UpdateView(_model);
     }
 
+    private void UpdateMusic(int value) => UpdateSound(SliderType.Music, value);
+    private void UpdateEffects(int value) => UpdateSound(SliderType.Effects, value);
+
     private void UpdateSound(SliderType sliderType, float value)
     {
         float valueMixer = Mathf.Log10(value) * 20;
+        _mixer.SetFloat(sliderType.ToString(), valueMixer);
 
         switch (sliderType)
         {
             case SliderType.Music:
-                _mixer.SetFloat(MUSIC_PARAM, valueMixer);
                 _model.musicVolume = value;
                 break;
 
             case SliderType.Effects:
-                _mixer.SetFloat(EFFECTS_PARAM, valueMixer);
-                _mixer.SetFloat(UI_PARAM, valueMixer);
                 _model.effectsVolume = value;
                 break;
         }

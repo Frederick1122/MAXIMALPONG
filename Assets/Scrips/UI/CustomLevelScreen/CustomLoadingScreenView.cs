@@ -11,9 +11,9 @@ public class CustomLoadingScreenView : UIView<CustomLoadingScreenModel>
     public event Action<int> OnBotComplexityUpdate;
     public event Action<int> OnBallQuantityUpdate;
     
-    [SerializeField] private CustomSlider _timeSlider;
-    [SerializeField] private CustomSlider _botComplexitySlider;
-    [SerializeField] private CustomSlider _ballQuantitySlider;
+    [SerializeField] private CustomParameter _timeParameterSlider;
+    [SerializeField] private CustomParameter _botComplexityParameterSlider;
+    [SerializeField] private CustomParameter _ballQuantityParameterSlider;
 
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _goToMainMenuButton;
@@ -23,9 +23,9 @@ public class CustomLoadingScreenView : UIView<CustomLoadingScreenModel>
         _playButton.onClick.AddListener(OnPlay.Invoke);
         _goToMainMenuButton.onClick.AddListener(OnGoToMainMenu.Invoke);
 
-        _timeSlider.OnUpdateValue += OnTimeUpdate;
-        _botComplexitySlider.OnUpdateValue += OnBotComplexityUpdate;
-        _ballQuantitySlider.OnUpdateValue += OnBallQuantityUpdate;
+        _timeParameterSlider.OnUpdateValue += OnTimeUpdate;
+        _botComplexityParameterSlider.OnUpdateValue += OnBotComplexityUpdate;
+        _ballQuantityParameterSlider.OnUpdateValue += OnBallQuantityUpdate;
     }
 
     private void OnDestroy()
@@ -33,21 +33,21 @@ public class CustomLoadingScreenView : UIView<CustomLoadingScreenModel>
         _playButton?.onClick.RemoveAllListeners();
         _goToMainMenuButton?.onClick.RemoveAllListeners();
         
-        if(_timeSlider != null)
-            _timeSlider.OnUpdateValue -= OnTimeUpdate;
-        if(_botComplexitySlider != null)
-            _botComplexitySlider.OnUpdateValue -= OnBotComplexityUpdate;
-        if(_ballQuantitySlider  != null)
-            _ballQuantitySlider.OnUpdateValue -= OnBallQuantityUpdate;
+        if(_timeParameterSlider != null)
+            _timeParameterSlider.OnUpdateValue -= OnTimeUpdate;
+        if(_botComplexityParameterSlider != null)
+            _botComplexityParameterSlider.OnUpdateValue -= OnBotComplexityUpdate;
+        if(_ballQuantityParameterSlider  != null)
+            _ballQuantityParameterSlider.OnUpdateValue -= OnBallQuantityUpdate;
     }
 
     public override void UpdateView(CustomLoadingScreenModel uiModel)
     {
         base.UpdateView(uiModel);
-        _timeSlider.Setup(uiModel.LevelConfig.timeSliderData);
-        _botComplexitySlider.gameObject.SetActive(!uiModel.isLocalMultiplayer);
-        _botComplexitySlider.Setup(uiModel.LevelConfig.complexitySliderData);
-        _ballQuantitySlider.Setup(uiModel.LevelConfig.ballQuantitySliderData);
+        _timeParameterSlider.Setup(uiModel.LevelConfig.timeSliderData);
+        _botComplexityParameterSlider.gameObject.SetActive(!uiModel.isLocalMultiplayer);
+        _botComplexityParameterSlider.Setup(uiModel.LevelConfig.complexitySliderData);
+        _ballQuantityParameterSlider.Setup(uiModel.LevelConfig.ballQuantitySliderData);
     }
 }
 
