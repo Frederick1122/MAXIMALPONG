@@ -6,6 +6,17 @@ public class GameScreenController : UIController<GameScreenView, GameScreenModel
     private YieldInstruction _second = new WaitForSeconds(1f);
     private Coroutine _timerRoutine;
     private GameScreenModel _model = new GameScreenModel();
+    public override void Init()
+    {
+        _view.OnPause += StartPause;
+        base.Init();
+    }
+
+    private void OnDestroy()
+    {
+        if(_view != null)
+            _view.OnPause -= StartPause;
+    }
 
     public void IncrementScore(TeamType teamType)
     {
@@ -48,4 +59,9 @@ public class GameScreenController : UIController<GameScreenView, GameScreenModel
             _view.UpdateView(_model);
         }
     }
+
+    private void StartPause()
+    {
+        UIManager.Instance.SetActiveScreen(ScreenType.Settings);
+    } 
 }

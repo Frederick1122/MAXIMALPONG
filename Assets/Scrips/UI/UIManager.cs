@@ -16,13 +16,14 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private CustomLoadingScreenController _customLevelMenuController;
     [SerializeField] private SettingsMenuController _settingsMenuController;
 
+    private const float START_LOADING_SCREEN = 0.01f;
     //loadingScreen
     private bool _isLoadingScreenFullAlpha;
     private bool _isStartLoadingScreen;
     private float _timePeriod;
     private float _alphaStep;
     //
-
+    
     public void StartLevel(LevelType levelType)
     {
         var screenType = levelType switch
@@ -45,7 +46,7 @@ public class UIManager : Singleton<UIManager>
         _alphaStep = multiplier / _timePeriod;
         
         _loadingImage.gameObject.SetActive(_isLoadingScreenFullAlpha);
-        SetColorAlpha(_loadingImage, _loadingImage.color.a + _alphaStep * Time.deltaTime);
+        SetColorAlpha(_loadingImage, _loadingImage.color.a + _alphaStep * START_LOADING_SCREEN);
     }
 
     public void StartLevelDebugging()
@@ -56,6 +57,11 @@ public class UIManager : Singleton<UIManager>
     public void IncrementScore(TeamType _type)
     {
         _gameScreenController.IncrementScore(_type);
+    }
+
+    public void StartNewLevel()
+    {
+        _gameScreenController.StartNewLevel();
     }
 
     public void SetLocalMultiplayerStage(bool isLocalMultiplayer)
@@ -73,7 +79,6 @@ public class UIManager : Singleton<UIManager>
                 break;
             case ScreenType.Game:
                 _gameScreenController.Show();
-                _gameScreenController.StartNewLevel();
                 break;
             case ScreenType.Shop:
                 break;

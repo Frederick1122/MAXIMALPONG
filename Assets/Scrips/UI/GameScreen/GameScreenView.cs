@@ -5,8 +5,22 @@ using UnityEngine;
 
 public class GameScreenView : UIView<GameScreenModel>
 {
+    public event Action OnPause;
+    
     [SerializeField] private List<TeamText> _teams;
     [SerializeField] private TMP_Text _timerText;
+    [SerializeField] private CustomButton _pauseButton;
+
+    public override void Init()
+    {
+        _pauseButton.OnClickButton += OnPause;
+    }
+
+    private void OnDestroy()
+    {
+        if (_pauseButton != null)
+            _pauseButton.OnClickButton -= OnPause;
+    }
 
     public override void UpdateView(GameScreenModel uiModel)
     {

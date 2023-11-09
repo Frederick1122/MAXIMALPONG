@@ -21,7 +21,7 @@ public class MatchManager : Singleton<MatchManager>
     private Coroutine _generateFirstBallsRoutine;
     private LevelConfig _currentLevel;
     private YieldInstruction _second = new WaitForSeconds(1f);
-    
+
     private void Start()
     {
         OnChangeActiveBallsAction?.Invoke();
@@ -41,7 +41,6 @@ public class MatchManager : Singleton<MatchManager>
             _ => teamType
         };
 
-        //if (_currentLevel.ballSpawnType == BallSpawnType.ByScore)
         SpawnNewBall();
         
         if(teamType == TeamType.None)
@@ -70,7 +69,10 @@ public class MatchManager : Singleton<MatchManager>
         }
         
         _activeBalls = new List<Ball>();
-
+        
+        if (_levelRoutine != null)
+            StopCoroutine(_levelRoutine);
+        
         if (!HasPlayerWin() || _currentLevel.isCustomLevel)
             return;
         
@@ -89,6 +91,7 @@ public class MatchManager : Singleton<MatchManager>
             StopCoroutine(_levelRoutine);
 
         _levelRoutine = StartCoroutine(LevelRoutine(_currentLevel.time));
+        UIManager.Instance.StartNewLevel();
     }
     
     public List<Ball> GetActiveBalls()

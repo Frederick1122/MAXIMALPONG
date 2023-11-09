@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 112.5
+  m_fontSize: 52.05
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b1f6f5bb3901642832df5ba999d908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _backToGameButton: {fileID: 8299105937729420074}
+  _goToGameButton: {fileID: 8299105937729420074}
   _goToMainMenuButton: {fileID: 3328928032578116863}
   _musicParameter: {fileID: 7256908724632421092}
   _effectsParameter: {fileID: 4428906340288381648}
@@ -561,7 +561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5568295616555231648, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_fontSize
-      value: 62.75
+      value: 37.35
       objectReference: {fileID: 0}
     - target: {fileID: 6116857579699146196, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_Name
@@ -569,7 +569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6824897806773306310, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_fontSize
-      value: 66.9
+      value: 40.05
       objectReference: {fileID: 0}
     - target: {fileID: 7200433533133142250, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1009,7 +1009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5568295616555231648, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_fontSize
-      value: 62.75
+      value: 37.35
       objectReference: {fileID: 0}
     - target: {fileID: 6116857579699146196, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_Name
@@ -1017,7 +1017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6824897806773306310, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_fontSize
-      value: 66.9
+      value: 40.05
       objectReference: {fileID: 0}
     - target: {fileID: 7200433533133142250, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_AnchoredPosition.x

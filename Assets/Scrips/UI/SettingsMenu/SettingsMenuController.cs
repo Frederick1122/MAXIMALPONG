@@ -1,13 +1,8 @@
-using System;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class SettingsMenuController : UIController<SettingsMenuView, SettingsMenuModel>
 {
-
-    private const string UI_PARAM = "UIVolume";
-
-    
     private AudioMixer _mixer;
     private SettingsMenuModel _model;
 
@@ -19,6 +14,8 @@ public class SettingsMenuController : UIController<SettingsMenuView, SettingsMen
 
         _view.OnChangeMusicParameter += UpdateMusic;
         _view.OnChangeEffectParameter += UpdateEffects;
+        _view.OnGoToGame += GoToGame;
+        _view.OnGoToMainMenu += GoToMainMenu;
 
         UpdateSound(SliderType.Music, _model.musicVolume);
         UpdateSound(SliderType.Effects, _model.effectsVolume);
@@ -37,7 +34,7 @@ public class SettingsMenuController : UIController<SettingsMenuView, SettingsMen
 
     public override void Show()
     {
-        _view.OnViewClose += Hide;
+        _view.OnGoToGame += Hide;
         UpdateView();
         base.Show();
     }
@@ -46,18 +43,36 @@ public class SettingsMenuController : UIController<SettingsMenuView, SettingsMen
     {
         // Save Params
         base.Hide();
-        _view.OnViewClose -= Hide;
+        _view.OnGoToGame -= Hide;
         
         if(_model != null)
             SaveManager.Instance.SettingsSaveData.Save(_model);
     }
 
+    
     public override void UpdateView()
     {
         base.UpdateView();
         _view.UpdateView(_model);
     }
 
+    private void GoToGame()
+    {
+        UIManager.Instance.SetActiveScreen(ScreenType.Game);
+    }
+
+    private void GoToMainMenu()
+    {
+        if (GameBus.Instance.GetLevelType() == LevelType.Game)
+        {
+            UIManager.Instance.SetActiveScreen(ScreenType.Game);
+            MatchManager.Instance.FinishLevel();
+            LoadingManager.Instance.StartLoadingMainMenu();
+        }
+        else
+            UIManager.Instance.SetActiveScreen(ScreenType.MainMenu);
+    }
+    
     private void UpdateMusic(int value) => UpdateSound(SliderType.Music, value);
     private void UpdateEffects(int value) => UpdateSound(SliderType.Effects, value);
 
