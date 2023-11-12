@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
 
@@ -42,7 +41,6 @@ public class CustomButton : MonoBehaviour
     private void Awake()
     {
         _button.onClick.AddListener(Click);
-        _image.enabled = false;
     }
 
     private void OnDestroy()

@@ -26,6 +26,7 @@ public enum ScreenType
     Settings,
     LevelMenu,
     CustomLevelMenu,
+    HowToPlay,
     EndMenu
 }
 

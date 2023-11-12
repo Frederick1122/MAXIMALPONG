@@ -69,6 +69,7 @@ public class MatchManager : Singleton<MatchManager>
         }
         
         _activeBalls = new List<Ball>();
+        _teams.Clear();
         
         if (_levelRoutine != null)
             StopCoroutine(_levelRoutine);

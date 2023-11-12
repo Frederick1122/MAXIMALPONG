@@ -15,6 +15,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private LevelMenuController _levelMenuController;
     [SerializeField] private CustomLoadingScreenController _customLevelMenuController;
     [SerializeField] private SettingsMenuController _settingsMenuController;
+    [SerializeField] private HowToPlayController _howToPlayController;
 
     private const float START_LOADING_SCREEN = 0.01f;
     //loadingScreen
@@ -91,6 +92,9 @@ public class UIManager : Singleton<UIManager>
             case ScreenType.CustomLevelMenu:
                 _customLevelMenuController.Show();
                 break;
+            case ScreenType.HowToPlay:
+                _howToPlayController.Show();
+                break;
             case ScreenType.EndMenu:
                 _endScreenController.Show();
                 break;
@@ -105,6 +109,7 @@ public class UIManager : Singleton<UIManager>
         _levelMenuController.Init();
         _customLevelMenuController.Init();
         _settingsMenuController.Init();
+        _howToPlayController.Init();
         
         SetColorAlpha(_loadingImage, 0f);
         _loadingImage.gameObject.SetActive(false);
@@ -119,6 +124,7 @@ public class UIManager : Singleton<UIManager>
         _levelMenuController.Hide();
         _customLevelMenuController.Hide();
         _settingsMenuController.Hide();
+        _howToPlayController.Hide();
     }
     
     private void Update() => LoadingScreenUpdater();
