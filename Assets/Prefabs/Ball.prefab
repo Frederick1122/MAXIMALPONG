@@ -99,11 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d14695b0f02fa543827df26d88fd832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseMaterial: {fileID: 2100000, guid: a0fa54a8fd20e944280f10bfeafc5c02, type: 2}
   _deviation: 0.5
   _speed: 250
   _maxSpeed: 1200
-  _minAngle: -35
-  _maxAngle: 35
 --- !u!135 &4221672856496357721
 SphereCollider:
   m_ObjectHideFlags: 0

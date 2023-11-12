@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,9 +12,6 @@ public class Ball : MonoBehaviour
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _maxSpeed = 500f;
     
-    [SerializeField] private float _minAngle = -35f;
-    [SerializeField] private float _maxAngle = 35f;
-    
     private Vector3 _direction;
     private Rigidbody _rigidbody;
     private TeamType _preLastPunch = TeamType.None;
@@ -23,17 +21,22 @@ public class Ball : MonoBehaviour
     {
         return _direction;
     }
+
+    public void SetDirection(Vector3 direction)
+    {
+        _direction = direction;
+    }
     
     private void OnCollisionEnter(Collision collision)
     {
         var ballStopper = collision.gameObject.GetComponent<BallStopper>();
         if (ballStopper != null)
         {
-            Debug.Log($"Ball: {gameObject.name} Collision: {collision.gameObject.name} Old direction: {_direction}");
+            //Debug.Log($"Ball: {gameObject.name} Collision: {collision.gameObject.name} Old direction: {_direction}");
             _direction = Vector3.Reflect(_direction, collision.contacts[collision.contacts.Length - 1].normal);
             _direction = new Vector3(_direction.x * Random.Range(1f - _deviation, 1f + _deviation), 0,
                 _direction.z * Random.Range(1f - _deviation, 1f + _deviation));
-            Debug.Log($"Ball: {gameObject.name} New direction: {_direction}");
+            //Debug.Log($"Ball: {gameObject.name} New direction: {_direction}");
             _speed = Mathf.Clamp(_speed * ballStopper.Multiplier, 1f, _maxSpeed);
 
             if (ballStopper.TeamType != TeamType.None)
@@ -67,16 +70,7 @@ public class Ball : MonoBehaviour
 
     private void Start()
     {
-        MatchManager.Instance.AddNewActiveBall(this);
-        
         _rigidbody = GetComponent<Rigidbody>();
-
-        var multiplier = Random.Range(0, 2) == 1 ? 1 : -1; 
-        var angle = Random.Range(_minAngle, _maxAngle) * multiplier;
-        var direction = Utils.GetVectorFromAngle((360 + angle) % 360);
-        _direction = new Vector3(direction.x, 0, direction.y);
-        
-        //Debug.Log($"{angle} Direction: {_direction.normalized}");
     }
 
     private void FixedUpdate()

@@ -2,19 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Base;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class MatchManager : Singleton<MatchManager>
 {
     public Action OnChangeActiveBallsAction;
-    
-    [Space]
-    [SerializeField] private List<Team> _teams;
-    [Space]
-    [Header("Balls")]
-    [SerializeField] private Transform _ballSpawnPoint;
-    [SerializeField] private List<Ball> _activeBalls = new List<Ball>(); // balls in scene
+
+    [Space] [SerializeField] private List<Team> _teams;
+
+    [Space] [Header("Balls")] [SerializeField]
+    private Transform _ballSpawnPoint;
+
+    [Space] [SerializeField] private List<Ball> _activeBalls = new List<Ball>(); // balls in scene
     [SerializeField] private List<Ball> _ballPrefabs = new List<Ball>();
 
     private Coroutine _levelRoutine;
@@ -30,8 +31,8 @@ public class MatchManager : Singleton<MatchManager>
     public void UpdateScore(TeamType gateType, TeamType lastPunch)
     {
         var teamType = TeamType.None;
-        
-        if(_currentLevel == null)
+
+        if (_currentLevel == null)
             return;
 
         teamType = _currentLevel.gameType switch
@@ -42,8 +43,8 @@ public class MatchManager : Singleton<MatchManager>
         };
 
         SpawnNewBall();
-        
-        if(teamType == TeamType.None)
+
+        if (teamType == TeamType.None)
             return;
 
         UIManager.Instance.IncrementScore(teamType);
@@ -51,12 +52,12 @@ public class MatchManager : Singleton<MatchManager>
         {
             if (team.GetTeamType() != teamType)
                 continue;
-            
+
             team.Score++;
             return;
         }
     }
-    
+
     public void FinishLevel()
     {
         var ballsCount = _activeBalls.Count;
@@ -67,16 +68,16 @@ public class MatchManager : Singleton<MatchManager>
             else
                 _activeBalls.RemoveAt(0);
         }
-        
+
         _activeBalls = new List<Ball>();
         _teams.Clear();
-        
+
         if (_levelRoutine != null)
             StopCoroutine(_levelRoutine);
-        
+
         if (!HasPlayerWin() || _currentLevel.isCustomLevel)
             return;
-        
+
         SaveManager.Instance.LevelsSaveData.Save(LoadingManager.Instance.GetCurrentLevelIndex() + 2);
     }
 
@@ -87,27 +88,27 @@ public class MatchManager : Singleton<MatchManager>
 
         if (_currentLevel.time <= 0)
             return;
-        
+
         if (_levelRoutine != null)
             StopCoroutine(_levelRoutine);
 
         _levelRoutine = StartCoroutine(LevelRoutine(_currentLevel.time));
         UIManager.Instance.StartNewLevel();
     }
-    
+
     public List<Ball> GetActiveBalls()
     {
         var activeBalls = new List<Ball>();
         foreach (var ball in _activeBalls)
         {
-            if(ball == null)
+            if (ball == null)
                 continue;
-            
+
             activeBalls.Add(ball);
         }
 
         _activeBalls = activeBalls;
-        
+
         return _activeBalls;
     }
 
@@ -115,14 +116,14 @@ public class MatchManager : Singleton<MatchManager>
     {
         _activeBalls.Remove(ball);
         OnChangeActiveBallsAction?.Invoke();
-        Destroy(ball.gameObject); 
+        Destroy(ball.gameObject);
     }
 
     public void AddNewActiveBall(Ball newBall)
     {
-        if (!_activeBalls.Contains(newBall)) 
+        if (!_activeBalls.Contains(newBall))
             _activeBalls.Add(newBall);
-        
+
         OnChangeActiveBallsAction?.Invoke();
     }
 
@@ -145,31 +146,42 @@ public class MatchManager : Singleton<MatchManager>
             {
                 if (team.Score < _biggestScore)
                     return false;
-                
-                _playerScore = team.Score;                
+
+                _playerScore = team.Score;
                 continue;
             }
-            
+
             _biggestScore = team.Score > _biggestScore ? team.Score : _biggestScore;
         }
 
         return _playerScore > _biggestScore;
     }
-    
+
+    [ContextMenu("Spawn New Ball")]
     private void SpawnNewBall()
     {
         var newBall = Instantiate(_ballPrefabs[Random.Range(0, _ballPrefabs.Count)], _ballSpawnPoint);
         newBall.transform.parent = null;
+        newBall.SetDirection(GetRandomDirection());
+        AddNewActiveBall(newBall);
     }
-    
+
     private void GenerateFirstBalls()
     {
         _activeBalls.Clear();
 
-        if (_generateFirstBallsRoutine != null) 
+        if (_generateFirstBallsRoutine != null)
             StopCoroutine(_generateFirstBallsRoutine);
 
         _generateFirstBallsRoutine = StartCoroutine(GenerateFirstBallsRoutine());
+    }
+
+    private Vector3 GetRandomDirection()
+    {
+        var multiplier = Random.Range(0, 2) == 1 ? 1 : -1;
+        var vector = Vector3.right + Vector3.forward;
+        var directionVector = Vector3.Lerp(vector, vector * -1, Random.Range(0f, 1f)) * multiplier;
+        return directionVector;
     }
 
     private IEnumerator LevelRoutine(int time)
@@ -198,7 +210,6 @@ public class Team
     [SerializeField] private string _nameTeam = "";
 
     public TeamType GetTeamType() => _teamType;
-    
+
     public string GetNameType() => _nameTeam;
 }
-
