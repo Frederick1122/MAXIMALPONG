@@ -69,9 +69,9 @@ public class LoadingManager : Singleton<LoadingManager>
         _activeLevel = Instantiate(newLevel, _levelSpawnPoint.transform);
         
         if (GameBus.Instance.GetLevelType() == LevelType.MainMenu)
-            MusicManager.Instance.StartMainMenuMusic();
+            SoundManager.Instance.StartMainMenuMusic();
         else 
-            MusicManager.Instance.StartGameMusic();
+            SoundManager.Instance.StartGameMusic();
         
         UIManager.Instance.SetActiveLoadingScreen(false);
         UIManager.Instance.StartLevel(GameBus.Instance.GetLevelType());
