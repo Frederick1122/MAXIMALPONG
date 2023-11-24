@@ -62,11 +62,16 @@ public class LoadingManager : Singleton<LoadingManager>
         UIManager.Instance.OnLoadingScreenIsDone -= FinishLoadingNewLevel;
 
         MatchManager.Instance.FinishLevel();
-        
+           
         var newLevel = Resources.Load<GameObject>($"{LEVELS_PATH}{_currentLevel.levelName}");
         DestroyImmediate(_activeLevel);
         
         _activeLevel = Instantiate(newLevel, _levelSpawnPoint.transform);
+        
+        if (GameBus.Instance.GetLevelType() == LevelType.MainMenu)
+            MusicManager.Instance.StartMainMenuMusic();
+        else 
+            MusicManager.Instance.StartGameMusic();
         
         UIManager.Instance.SetActiveLoadingScreen(false);
         UIManager.Instance.StartLevel(GameBus.Instance.GetLevelType());
