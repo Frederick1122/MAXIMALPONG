@@ -1,12 +1,12 @@
-using System;
+using Lean.Localization;
 
 public class EndScreenController : UIController<EndScreenView, EndScreenModel>
 {
-    private const string LOSE = "You lose";
-    private const string WIN = "You win";
-    private const string PLAYER_1_WIN = "Player 1 win";
-    private const string DRAW = "Draw";
-    private const string PLAYER_2_WIN = "Player 2 win";
+    private const string UI_WIN  = "UI_PLAYER_WIN";
+    private const string UI_LOSE = "UI_PLAYER_LOSE";
+    private const string UI_DRAW = "UI_PLAYER_DRAW";
+    private const string UI_PLAYER_1_WIN = "UI_PLAYER_1_WIN";
+    private const string UI_PLAYER_2_WIN = "UI_PLAYER_2_WIN";
     
     public override void Init()
     {
@@ -26,14 +26,14 @@ public class EndScreenController : UIController<EndScreenView, EndScreenModel>
             var player2Score = MatchManager.Instance.GetScore(TeamType.Player2);
             
             if (player1Score > player2Score)
-                model.endText = PLAYER_1_WIN;
+                model.endText =  LeanLocalization.GetTranslationText(UI_PLAYER_1_WIN);
             else if (player1Score == player2Score)
-                model.endText = DRAW;
+                model.endText = LeanLocalization.GetTranslationText(UI_DRAW);
             else
-                model.endText = PLAYER_2_WIN;
+                model.endText = LeanLocalization.GetTranslationText(UI_PLAYER_2_WIN);
         }
         else
-            model.endText = model.isWinner ? WIN : LOSE;
+            model.endText = LeanLocalization.GetTranslationText(model.isWinner ? UI_WIN : UI_LOSE);
 
         _view.UpdateView(model);
         _view.Show();

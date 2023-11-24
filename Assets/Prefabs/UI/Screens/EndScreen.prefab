@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 168.35
+  m_fontSize: 54.05
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -395,11 +395,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4147958330189337202, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
       propertyPath: m_text
-      value: Go to main menu
+      value: Return to main menu
       objectReference: {fileID: 0}
     - target: {fileID: 4147958330189337202, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
       propertyPath: m_fontSize
-      value: 95.75
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5046603579566761585, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
       propertyPath: m_SizeDelta.y
@@ -515,6 +515,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5766495050396233332, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
   m_PrefabInstance: {fileID: 3772716788428360917}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7576907238835867495 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6736810081692222386, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
+  m_PrefabInstance: {fileID: 3772716788428360917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7229783078333085813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7576907238835867495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: UI_RETURN_TO_MAIN_MENU
+  FallbackText: Go to main menu
 --- !u!1001 &4766920021873662185
 PrefabInstance:
   m_ObjectHideFlags: 0

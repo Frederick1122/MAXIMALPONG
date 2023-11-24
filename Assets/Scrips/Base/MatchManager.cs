@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Base;
-using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,14 +9,13 @@ public class MatchManager : Singleton<MatchManager>
 {
     public Action OnChangeActiveBallsAction;
 
-    [Space] [SerializeField] private List<Team> _teams;
-
     [Space] [Header("Balls")] [SerializeField]
     private Transform _ballSpawnPoint;
 
     [Space] [SerializeField] private List<Ball> _activeBalls = new List<Ball>(); // balls in scene
     [SerializeField] private List<Ball> _ballPrefabs = new List<Ball>();
-
+    
+    private Dictionary<TeamType, int> _teamScores = new Dictionary<TeamType, int>();
     private Coroutine _levelRoutine;
     private Coroutine _generateFirstBallsRoutine;
     private LevelConfig _currentLevel;
@@ -48,14 +46,10 @@ public class MatchManager : Singleton<MatchManager>
             return;
 
         UIManager.Instance.IncrementScore(teamType);
-        foreach (var team in _teams)
-        {
-            if (team.GetTeamType() != teamType)
-                continue;
-
-            team.Score++;
-            return;
-        }
+        if (_teamScores.ContainsKey(teamType))
+            _teamScores[teamType]++;
+        else
+            _teamScores.Add(teamType, 1);
     }
 
     public void FinishLevel()
@@ -70,7 +64,7 @@ public class MatchManager : Singleton<MatchManager>
         }
 
         _activeBalls = new List<Ball>();
-        _teams.Clear();
+        _teamScores.Clear();
 
         if (_levelRoutine != null)
             StopCoroutine(_levelRoutine);
@@ -119,7 +113,7 @@ public class MatchManager : Singleton<MatchManager>
         Destroy(ball.gameObject);
     }
 
-    public void AddNewActiveBall(Ball newBall)
+    private void AddNewActiveBall(Ball newBall)
     {
         if (!_activeBalls.Contains(newBall))
             _activeBalls.Add(newBall);
@@ -129,32 +123,28 @@ public class MatchManager : Singleton<MatchManager>
 
     public int GetScore(TeamType teamType)
     {
-        foreach (var team in _teams)
-            if (team.GetTeamType() == teamType)
-                return team.Score;
-
-        return 0;
+        return _teamScores.ContainsKey(teamType) ? _teamScores[teamType] : 0;
     }
 
     public bool HasPlayerWin()
     {
-        var _playerScore = 0;
-        var _biggestScore = 0;
-        foreach (var team in _teams)
+        var playerScore = 0;
+        var biggestScore = 0;
+        foreach (var team in _teamScores)
         {
-            if (team.GetTeamType() == TeamType.Player1)
+            if (team.Key == TeamType.Player1)
             {
-                if (team.Score < _biggestScore)
+                if (team.Value < biggestScore)
                     return false;
 
-                _playerScore = team.Score;
+                playerScore = team.Value;
                 continue;
             }
 
-            _biggestScore = team.Score > _biggestScore ? team.Score : _biggestScore;
+            biggestScore = team.Value > biggestScore ? team.Value : biggestScore;
         }
 
-        return _playerScore > _biggestScore;
+        return playerScore > biggestScore;
     }
 
     [ContextMenu("Spawn New Ball")]

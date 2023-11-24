@@ -310,7 +310,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 135.6
+  m_fontSize: 44.7
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1466,6 +1466,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
+--- !u!1 &8513414511906089673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6736810081692222386, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
+  m_PrefabInstance: {fileID: 3123330415588829563}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5870024182692095356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8513414511906089673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: UI_LOCAL_MULTIPLAYER
+  FallbackText: Local multiplayer
 --- !u!114 &8802322462640629534 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5868311070178446949, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
@@ -1865,6 +1884,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
+--- !u!1 &7041721541346118048 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6736810081692222386, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
+  m_PrefabInstance: {fileID: 4378850677044005394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8802299639043567333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7041721541346118048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: UI_CUSTOM_LEVEL
+  FallbackText: Custom level
 --- !u!224 &7836960234433520742 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5766495050396233332, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
@@ -2280,6 +2318,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5766495050396233332, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
   m_PrefabInstance: {fileID: 7051000892202757575}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4370702650606104181 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6736810081692222386, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
+  m_PrefabInstance: {fileID: 7051000892202757575}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &190806535479602623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4370702650606104181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: UI_RETURN_TO_MAIN_MENU
+  FallbackText: Return to main menu
 --- !u!1001 &7269469679249377482
 PrefabInstance:
   m_ObjectHideFlags: 0

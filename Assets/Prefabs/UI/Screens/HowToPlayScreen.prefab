@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 95399875831186586}
   - component: {fileID: 95399875831186535}
   - component: {fileID: 95399875831186532}
+  - component: {fileID: 6327531120169848598}
   m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
@@ -198,7 +199,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.25
+  m_fontSize: 37.5
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -240,6 +241,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6327531120169848598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95399875831186587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: UI_HOW_TO_PLAY_TITLE
+  FallbackText: How to play
 --- !u!1 &3869004240557624694
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +345,7 @@ GameObject:
   - component: {fileID: 8762972751207228772}
   - component: {fileID: 6069461148081096306}
   - component: {fileID: 2793844253391057522}
+  - component: {fileID: 8769331669237740602}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -417,7 +433,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.95
+  m_fontSize: 19.1
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -459,6 +475,25 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8769331669237740602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6890197248336615436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: UI_HOW_TO_PLAY
+  FallbackText: 'In a standard game, use A/D or left and right arrows to control.
+
+
+    In
+    local multiplayer, one player uses W/S to control, the second player uses the
+    up and down arrow.'
 --- !u!1 &7479435924827458657
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,3 +729,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5766495050396233332, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
   m_PrefabInstance: {fileID: 2729636262174191059}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8690936437226597985 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6736810081692222386, guid: 6480d0be95428714ca6778a6aec7af2a, type: 3}
+  m_PrefabInstance: {fileID: 2729636262174191059}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7301863714327717492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8690936437226597985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: UI_RETURN_TO_MAIN_MENU
+  FallbackText: Return to main menu

@@ -13,7 +13,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameScreenController _gameScreenController; 
     [SerializeField] private EndScreenController _endScreenController;
     [SerializeField] private LevelMenuController _levelMenuController;
-    [SerializeField] private CustomLoadingScreenController _customLevelMenuController;
+    [SerializeField] private CustomLevelScreenController _customLevelMenuController;
     [SerializeField] private SettingsMenuController _settingsMenuController;
     [SerializeField] private HowToPlayController _howToPlayController;
 

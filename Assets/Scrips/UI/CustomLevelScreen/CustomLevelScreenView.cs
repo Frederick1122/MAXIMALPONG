@@ -2,11 +2,10 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CustomLoadingScreenView : UIView<CustomLoadingScreenModel>
+public class CustomLevelScreenView : UIView<CustomLoadingScreenModel>
 {
     public event Action OnPlay;
     public event Action OnGoToMainMenu;
-
     public event Action<int> OnTimeUpdate;
     public event Action<int> OnBotComplexityUpdate;
     public event Action<int> OnBallQuantityUpdate;

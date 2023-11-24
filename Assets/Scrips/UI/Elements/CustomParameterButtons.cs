@@ -20,7 +20,9 @@ public class CustomParameterButtons : CustomParameter
         _leftButton.onClick.AddListener(() => UpdateValue(-1));
         _rightButton.onClick.AddListener(() => UpdateValue(1));
         
-        _name.text = barName;
+        if (barName != "")
+            _name.text = barName;
+        
         _stepValue = (maxValue - minValue) / steps;
         UpdateValue(_steps / 2);
     }

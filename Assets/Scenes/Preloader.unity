@@ -606,25 +606,10 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: 'In a standard game, use A/D or left and right arrows to control.
-
-
-      In
-      local multiplayer, one player uses W/S to control, the second player uses the
-      up and down arrow.'
+    Text: How to play
     Object: {fileID: 0}
   - Language: Russian
-    Text: "\u0412 \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u043E\u0439
-      \u0438\u0433\u0440\u0435 \u0434\u043B\u044F \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u044F
-      \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 A/D \u0438\u043B\u0438
-      \u0441\u0442\u0440\u0435\u043B\u043A\u0438 \u0432\u043B\u0435\u0432\u043E \u0438
-      \u0432\u043F\u0440\u0430\u0432\u043E.\n\n\u0412 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E\u043C
-      \u043C\u0443\u043B\u044C\u0442\u0438\u043F\u043B\u0435\u0435\u0440\u0435 \u043E\u0434\u0438\u043D
-      \u0438\u0433\u0440\u043E\u043A \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442
-      W /S \u0434\u043B\u044F \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u044F,
-      \u0432\u0442\u043E\u0440\u043E\u0439 \u0438\u0433\u0440\u043E\u043A \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442
-      \u0441\u0442\u0440\u0435\u043B\u043A\u0438 \u0432\u0432\u0435\u0440\u0445 \u0438
-      \u0432\u043D\u0438\u0437."
+    Text: "\u041A\u0430\u043A \u0438\u0433\u0440\u0430\u0442\u044C"
     Object: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
@@ -751,6 +736,58 @@ Transform:
   m_Father: {fileID: 1097731782}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &803445817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 803445818}
+  - component: {fileID: 803445819}
+  m_Layer: 0
+  m_Name: UI_BALL_QUANTITY
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &803445818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803445817}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1773574449}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &803445819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803445817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: English
+    Text: Ball quantity
+    Object: {fileID: 0}
+  - Language: Russian
+    Text: "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0448\u0430\u0440\u043E\u0432"
+    Object: {fileID: 0}
 --- !u!1 &811425404
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,6 +840,58 @@ MonoBehaviour:
   - Language: Russian
     Text: "\u041C\u0443\u0437\u044B\u043A\u0430"
     Object: {fileID: 0}
+--- !u!1 &957718355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 957718356}
+  - component: {fileID: 957718357}
+  m_Layer: 0
+  m_Name: UI_GAME_TIME
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &957718356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957718355}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1773574449}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &957718357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957718355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: English
+    Text: Game time
+    Object: {fileID: 0}
+  - Language: Russian
+    Text: "\u0412\u0440\u0435\u043C\u044F \u0438\u0433\u0440\u044B"
+    Object: {fileID: 0}
 --- !u!1 &1097731780
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,13 +921,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6fb66beed7733449de602e78321237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _teams:
-  - Score: 0
-    _teamType: 1
-    _nameTeam: Player
-  - Score: 0
-    _teamType: 2
-    _nameTeam: Player
   _ballSpawnPoint: {fileID: 772017862}
   _activeBalls:
   - {fileID: 0}
@@ -862,6 +944,58 @@ Transform:
   m_Father: {fileID: 1617189450}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1185561274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1185561275}
+  - component: {fileID: 1185561276}
+  m_Layer: 0
+  m_Name: UI_PLAYER_2_WIN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1185561275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185561274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1773574449}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1185561276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185561274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: English
+    Text: Player 2 win
+    Object: {fileID: 0}
+  - Language: Russian
+    Text: "\u0418\u0433\u0440\u043E\u043A 2 \u0432\u044B\u0438\u0433\u0440\u0430\u043B"
+    Object: {fileID: 0}
 --- !u!1 &1315882560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,6 +1353,11 @@ Transform:
   - {fileID: 1624078834}
   - {fileID: 264787762}
   - {fileID: 634416346}
+  - {fileID: 957718356}
+  - {fileID: 1839371031}
+  - {fileID: 803445818}
+  - {fileID: 1808312010}
+  - {fileID: 1185561275}
   m_Father: {fileID: 1617189450}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1236,7 +1375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLanguage: English
   detectLanguage: 1
-  defaultLanguage: 
+  defaultLanguage: Russian
   saveLoad: 1
   prefabs: []
 --- !u!1 &1790586535
@@ -1286,10 +1425,25 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: How to play
+    Text: 'In a standard game, use A/D or left and right arrows to control.
+
+
+      In
+      local multiplayer, one player uses W/S to control, the second player uses the
+      up and down arrow.'
     Object: {fileID: 0}
   - Language: Russian
-    Text: "\u041A\u0430\u043A \u0438\u0433\u0440\u0430\u0442\u044C"
+    Text: "\u0412 \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u043E\u0439
+      \u0438\u0433\u0440\u0435 \u0434\u043B\u044F \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u044F
+      \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 A/D \u0438\u043B\u0438
+      \u0441\u0442\u0440\u0435\u043B\u043A\u0438 \u0432\u043B\u0435\u0432\u043E \u0438
+      \u0432\u043F\u0440\u0430\u0432\u043E.\n\n\u0412 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u043E\u043C
+      \u043C\u0443\u043B\u044C\u0442\u0438\u043F\u043B\u0435\u0435\u0440\u0435 \u043E\u0434\u0438\u043D
+      \u0438\u0433\u0440\u043E\u043A \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442
+      W /S \u0434\u043B\u044F \u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u044F,
+      \u0432\u0442\u043E\u0440\u043E\u0439 \u0438\u0433\u0440\u043E\u043A \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442
+      \u0441\u0442\u0440\u0435\u043B\u043A\u0438 \u0432\u0432\u0435\u0440\u0445 \u0438
+      \u0432\u043D\u0438\u0437."
     Object: {fileID: 0}
 --- !u!1 &1798408421
 GameObject:
@@ -1336,6 +1490,110 @@ Transform:
   m_Father: {fileID: 1617189450}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1808312009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808312010}
+  - component: {fileID: 1808312011}
+  m_Layer: 0
+  m_Name: UI_PLAYER_1_WIN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1808312010
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808312009}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1773574449}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1808312011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808312009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: English
+    Text: Player 1 win
+    Object: {fileID: 0}
+  - Language: Russian
+    Text: "\u0418\u0433\u0440\u043E\u043A 1 \u0432\u044B\u0438\u0433\u0440\u0430\u043B"
+    Object: {fileID: 0}
+--- !u!1 &1839371030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1839371031}
+  - component: {fileID: 1839371032}
+  m_Layer: 0
+  m_Name: UI_BOT_COMPLEXITY
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1839371031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839371030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1773574449}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1839371032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839371030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: English
+    Text: Bot complexity
+    Object: {fileID: 0}
+  - Language: Russian
+    Text: "\u0421\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u0431\u043E\u0442\u0430"
+    Object: {fileID: 0}
 --- !u!1 &1851894428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,6 +2179,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3073038055502969678, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.8992004
+      objectReference: {fileID: 0}
     - target: {fileID: 3282500437035303849, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1965,6 +2227,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3393395772932492451, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.8992004
+      objectReference: {fileID: 0}
     - target: {fileID: 3536166621204317552, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2013,6 +2279,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3692110016501453237, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
+      propertyPath: m_text
+      value: How to play
+      objectReference: {fileID: 0}
     - target: {fileID: 3838355794281751014, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2084,6 +2354,10 @@ PrefabInstance:
     - target: {fileID: 4226551364304387919, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542411216179241051, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.8992004
       objectReference: {fileID: 0}
     - target: {fileID: 4608461159468859795, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2273,6 +2547,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7584249081199753898, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.8992004
+      objectReference: {fileID: 0}
     - target: {fileID: 7643512742304876855, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2321,6 +2599,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7850608639575887175, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.8992004
+      objectReference: {fileID: 0}
     - target: {fileID: 7874893671052138655, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2408,6 +2690,10 @@ PrefabInstance:
     - target: {fileID: 8719395427275569595, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8745581243197249106, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.8992004
       objectReference: {fileID: 0}
     - target: {fileID: 9013077755105470463, guid: 10f7a31f6c9913849859ef3481c81da5, type: 3}
       propertyPath: m_AnchorMax.y

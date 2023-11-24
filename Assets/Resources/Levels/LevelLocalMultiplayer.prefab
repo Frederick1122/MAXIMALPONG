@@ -79,6 +79,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 2766581044016906774, guid: 52eb1300882ed204d9bb138212e0dc85, type: 3}
+      propertyPath: TeamType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2766581044016906782, guid: 52eb1300882ed204d9bb138212e0dc85, type: 3}
       propertyPath: m_Name
       value: Player2

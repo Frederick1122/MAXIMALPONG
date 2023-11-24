@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52.05
+  m_fontSize: 52.3
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -561,15 +561,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5568295616555231648, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_fontSize
-      value: 37.35
+      value: 37.4
       objectReference: {fileID: 0}
     - target: {fileID: 6116857579699146196, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_Name
       value: EffectsVolume
       objectReference: {fileID: 0}
     - target: {fileID: 6824897806773306310, guid: 90700d86c0319534383b6890326fe79d, type: 3}
+      propertyPath: m_text
+      value: Sound volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824897806773306310, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_fontSize
-      value: 40.05
+      value: 39.95
       objectReference: {fileID: 0}
     - target: {fileID: 7200433533133142250, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -677,6 +681,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90700d86c0319534383b6890326fe79d, type: 3}
+--- !u!1 &4337200597883379520 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4028824712991820049, guid: 90700d86c0319534383b6890326fe79d, type: 3}
+  m_PrefabInstance: {fileID: 853878865112733265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3787646378665649173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4337200597883379520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: UI_SOUND_VOLUME
+  FallbackText: 'Ball count:'
 --- !u!114 &4428906340288381648 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3940426009771201665, guid: 90700d86c0319534383b6890326fe79d, type: 3}
@@ -1009,15 +1032,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5568295616555231648, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_fontSize
-      value: 37.35
+      value: 37.4
       objectReference: {fileID: 0}
     - target: {fileID: 6116857579699146196, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_Name
       value: MusicVolume
       objectReference: {fileID: 0}
     - target: {fileID: 6824897806773306310, guid: 90700d86c0319534383b6890326fe79d, type: 3}
+      propertyPath: m_text
+      value: Music volume
+      objectReference: {fileID: 0}
+    - target: {fileID: 6824897806773306310, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_fontSize
-      value: 40.05
+      value: 39.95
       objectReference: {fileID: 0}
     - target: {fileID: 7200433533133142250, guid: 90700d86c0319534383b6890326fe79d, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1141,6 +1168,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d945110f7a34738a2bba631cb9e221d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7346442081705402228 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4028824712991820049, guid: 90700d86c0319534383b6890326fe79d, type: 3}
+  m_PrefabInstance: {fileID: 5916195668241241701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1652888167843574860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7346442081705402228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translationName: UI_MUSIC_VOLUME
+  FallbackText: 'Ball count:'
 --- !u!1001 &7527298558092315390
 PrefabInstance:
   m_ObjectHideFlags: 0

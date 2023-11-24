@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CustomLoadingScreenController : UIController<CustomLoadingScreenView, CustomLoadingScreenModel>
+public class CustomLevelScreenController : UIController<CustomLevelScreenView, CustomLoadingScreenModel>
 {
     private const string LOCAL_MULTIPLAYER_LEVEL_NAME = "LevelLocalMultiplayer";
     

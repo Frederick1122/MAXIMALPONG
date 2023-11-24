@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class SettingsMenuView : UIView<SettingsMenuModel>
 {
-    private const string MUSIC_PARAM = "MusicVolume";
-    private const string EFFECTS_PARAM = "EffectsVolume";
-    
     public event Action OnGoToGame;
     public event Action OnGoToMainMenu;
     public event Action<int> OnChangeMusicParameter;
@@ -23,8 +20,8 @@ public class SettingsMenuView : UIView<SettingsMenuModel>
     
     public override void Init()
     {
-        _musicParameter.Setup(MUSIC_PARAM, 0, 100, 10);
-        _effectsParameter.Setup(EFFECTS_PARAM, 0, 100, 10);
+        _musicParameter.Setup("", 0, 100, 10);
+        _effectsParameter.Setup("", 0, 100, 10);
 
         _musicParameter.OnUpdateValue += OnChangeMusicParameter;
         _musicParameter.OnUpdateValue += OnChangeEffectParameter;
