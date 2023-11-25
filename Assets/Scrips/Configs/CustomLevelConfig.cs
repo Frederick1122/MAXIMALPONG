@@ -16,4 +16,5 @@ public class CustomSliderData
     public int minValue;
     public int maxValue;
     public int steps;
+    public int initValue;
 }

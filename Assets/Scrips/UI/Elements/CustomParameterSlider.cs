@@ -20,9 +20,9 @@ public class CustomParameterSlider : CustomParameter
         _slider?.onValueChanged.RemoveAllListeners();
     }
 
-    public override void Setup(string barName, int minValue, int maxValue, int steps)
+    public override void Setup(string barName, int minValue, int maxValue, int steps, int initValue)
     {
-        base.Setup(barName, minValue, maxValue, steps);
+        base.Setup(barName, minValue, maxValue, steps, initValue);
         _barName = barName;
         _slider.maxValue = maxValue;
         _slider.minValue = minValue;

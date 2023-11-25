@@ -40,6 +40,7 @@ public class SoundManager : Singleton<SoundManager>
         _effectSource.clip = _soundLibrary.sounds[type];
         _effectSource.Play();
     }
+    
     public AudioMixer GetMixer()
     {
         return _mixer;

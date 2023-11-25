@@ -1,11 +1,14 @@
-using UnityEngine;
+using System;
 using UnityEngine.Audio;
 
 public class SettingsMenuController : UIController<SettingsMenuView, SettingsMenuModel>
 {
+    private const float SHUTDOWN_MIXER_VALUE = -80f;
+    private const float MINIMAL_MIXER_VALUE = -20f;
+    private const float MAXIMUM_MIXER_VALUE = 10f;
     private AudioMixer _mixer;
     private SettingsMenuModel _model;
-
+    
     public override void Init()
     {
         // Load values
@@ -48,7 +51,6 @@ public class SettingsMenuController : UIController<SettingsMenuView, SettingsMen
         if(_model != null)
             SaveManager.Instance.SettingsSaveData.Save(_model);
     }
-
     
     public override void UpdateView()
     {
@@ -78,7 +80,7 @@ public class SettingsMenuController : UIController<SettingsMenuView, SettingsMen
 
     private void UpdateSound(SliderType sliderType, float value)
     {
-        float valueMixer = Mathf.Log10(value) * 20;
+        float valueMixer = GetMixerValue(value);
         _mixer.SetFloat(sliderType.ToString(), valueMixer);
 
         switch (sliderType)
@@ -93,6 +95,15 @@ public class SettingsMenuController : UIController<SettingsMenuView, SettingsMen
         }
 
         SaveManager.Instance.SettingsSaveData.Save(_model);
+    }
+
+    private float GetMixerValue(float value)
+    {
+        if ((int) value == 0)
+            return SHUTDOWN_MIXER_VALUE;
+        
+        var mixerValue = (MAXIMUM_MIXER_VALUE - MINIMAL_MIXER_VALUE) * value / 100;
+        return MINIMAL_MIXER_VALUE + mixerValue;
     }
 }
 

@@ -20,11 +20,13 @@ public class SettingsMenuView : UIView<SettingsMenuModel>
     
     public override void Init()
     {
-        _musicParameter.Setup("", 0, 100, 10);
-        _effectsParameter.Setup("", 0, 100, 10);
+        var model = SaveManager.Instance.SettingsSaveData.Load();
+        
+        _musicParameter.Setup("", 0, 100, 10, (int)model.musicVolume);
+        _effectsParameter.Setup("", 0, 100, 10, (int)model.effectsVolume);
 
         _musicParameter.OnUpdateValue += OnChangeMusicParameter;
-        _musicParameter.OnUpdateValue += OnChangeEffectParameter;
+        _effectsParameter.OnUpdateValue += OnChangeEffectParameter;
         
         _goToGameButton.onClick.AddListener(OnGoToGame.Invoke);
         _goToMainMenuButton.onClick.AddListener(OnGoToMainMenu.Invoke);

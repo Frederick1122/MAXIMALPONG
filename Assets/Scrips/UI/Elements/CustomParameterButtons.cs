@@ -9,12 +9,13 @@ public class CustomParameterButtons : CustomParameter
     [SerializeField] protected Button _leftButton;
     [SerializeField] protected Button _rightButton;
 
-    private int _currentStep = 1;
+    private int _currentStep;
     private int _stepValue;
-
-    public override void Setup(string barName, int minValue, int maxValue, int steps)
+    private int _minValue;
+    
+    public override void Setup(string barName, int minValue, int maxValue, int steps, int initValue)
     {
-        base.Setup(barName, minValue, maxValue, steps);
+        base.Setup(barName, minValue, maxValue, steps, initValue);
         
         _leftButton.onClick.RemoveAllListeners();
         _rightButton.onClick.RemoveAllListeners();
@@ -25,15 +26,20 @@ public class CustomParameterButtons : CustomParameter
         
         if (barName != "")
             _name.text = barName;
-        
+
+        _minValue = minValue;
         _stepValue = (maxValue - minValue) / steps;
-        UpdateValue(_steps / 2);
+        var currentStep = 0;
+        while (currentStep * _stepValue < initValue) 
+            currentStep++;
+
+        UpdateValue(currentStep);
     }
 
     protected override void UpdateValue(float value)
     {
-        _currentStep = Mathf.Clamp(_currentStep + (int) value, 1, _steps);
-        _value = _currentStep * _stepValue;
+        _currentStep = Mathf.Clamp(_currentStep + (int) value, 0, _steps);
+        _value = _currentStep * _stepValue + _minValue;
         _parameterCount.text = _value.ToString();
         base.UpdateValue(value);
     }
