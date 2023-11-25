@@ -14,10 +14,7 @@ public class MainMenuView : UIView<MainMenuModel>
 
     public override void Init()
     {
-        _playButton.onClick.AddListener(() => {
-            StartGameAction.Invoke();
-            SoundManager.Instance.AddNewEffect(SoundType.CLICK);
-        });
+        _playButton.onClick.AddListener(StartGameAction.Invoke);
         _settingsButton.onClick.AddListener(OpenSettingsAction.Invoke);
         _howToPlayButton.onClick.AddListener(OpenHowToPlayAction.Invoke);
     }

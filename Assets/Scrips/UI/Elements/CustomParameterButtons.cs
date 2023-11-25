@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CustomParameterButtons : CustomParameter
 {
+    [SerializeField] private SoundType _buttonSoundType;
     [SerializeField] protected TMP_Text _parameterCount;
     [SerializeField] protected Button _leftButton;
     [SerializeField] protected Button _rightButton;
@@ -18,7 +19,9 @@ public class CustomParameterButtons : CustomParameter
         _leftButton.onClick.RemoveAllListeners();
         _rightButton.onClick.RemoveAllListeners();
         _leftButton.onClick.AddListener(() => UpdateValue(-1));
+        _leftButton.onClick.AddListener(() => SoundManager.Instance.AddNewEffect(_buttonSoundType));
         _rightButton.onClick.AddListener(() => UpdateValue(1));
+        _rightButton.onClick.AddListener(() => SoundManager.Instance.AddNewEffect(_buttonSoundType));
         
         if (barName != "")
             _name.text = barName;

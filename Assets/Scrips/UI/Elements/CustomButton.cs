@@ -8,7 +8,8 @@ using Image = UnityEngine.UI.Image;
 public class CustomButton : MonoBehaviour
 {
     public event Action OnClickButton;
-    
+
+    [SerializeField] private SoundType _buttonSoundType;
     [SerializeField] private Button _button;
     [SerializeField] private TMP_Text _text;
     [SerializeField] private Image _image;
@@ -41,6 +42,7 @@ public class CustomButton : MonoBehaviour
     private void Awake()
     {
         _button.onClick.AddListener(Click);
+        _button.onClick.AddListener(() => SoundManager.Instance.AddNewEffect(_buttonSoundType));
     }
 
     private void OnDestroy()

@@ -17,16 +17,10 @@ public class Ball : MonoBehaviour
     private TeamType _preLastPunch = TeamType.None;
     private TeamType _lastPunch = TeamType.None;
 
-    public Vector3 GetDirection()
-    {
-        return _direction;
-    }
+    public Vector3 GetDirection() => _direction;
 
-    public void SetDirection(Vector3 direction)
-    {
-        _direction = direction;
-    }
-    
+    public void SetDirection(Vector3 direction) => _direction = direction;
+
     private void OnCollisionEnter(Collision collision)
     {
         var ballStopper = collision.gameObject.GetComponent<BallStopper>();
@@ -54,18 +48,19 @@ public class Ball : MonoBehaviour
                 _rigidbody.useGravity = false;
             }
 
+            SoundManager.Instance.AddNewEffect(SoundType.BALL_PUNCH);
             return;
         }
 
         var border = collision.gameObject.GetComponent<Border>();
-        if (border != null)
-        {
-            if (_lastPunch == border.TeamType)
-                _lastPunch = _preLastPunch;
+        if (border == null)
+            return;
+        
+        if (_lastPunch == border.TeamType)
+            _lastPunch = _preLastPunch;
             
-            MatchManager.Instance.UpdateScore(border.TeamType, _lastPunch);
-            MatchManager.Instance.DestroyBall(this);
-        }
+        MatchManager.Instance.UpdateScore(border.TeamType, _lastPunch);
+        MatchManager.Instance.DestroyBall(this);
     }
 
     private void Start()
