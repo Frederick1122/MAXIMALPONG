@@ -20,6 +20,7 @@ public class Bot : MonoBehaviour
 
     private void Start()
     {
+        UpdateActiveBalls();
         MatchManager.Instance.OnChangeActiveBallsAction += UpdateActiveBalls;
         _speed = LoadingManager.Instance.GetCurrentLevel().botSpeed;
         

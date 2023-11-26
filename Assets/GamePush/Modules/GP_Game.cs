@@ -86,7 +86,17 @@ namespace GamePush
 #endif
         }
 
-
+        [DllImport("__Internal")]
+        private static extern void GP_GameReady();
+        public static void GameReady()
+        {
+#if !UNITY_EDITOR && UNITY_WEBGL
+            GP_GameReady();
+#else
+            if (GP_ConsoleController.Instance.GameConsoleLogs)
+                Console.Log("GAME:", "READY");
+#endif
+        }
 
 
         private void CallOnPause() => OnPause?.Invoke();

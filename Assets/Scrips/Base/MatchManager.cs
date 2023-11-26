@@ -186,7 +186,6 @@ public class MatchManager : Singleton<MatchManager>
         for (int i = 0; i < _currentLevel.ballCount; i++)
         {
             SpawnNewBall();
-            OnChangeActiveBallsAction?.Invoke();
             yield return _second;
         }
     }

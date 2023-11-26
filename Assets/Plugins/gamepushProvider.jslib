@@ -86,6 +86,47 @@ mergeInto(LibraryManager.library, {
         stringToUTF8(value, buffer, bufferSize);
         return buffer;
     },
+    GP_App_ReviewRequest: function(){
+        var value = GamePush.AppRequestReview();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_App_CanReview: function(){
+        var value = GamePush.AppCanRequestReview();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+        GP_App_IsAlreadyReviewed: function(){
+        var value = GamePush.AppIsAlreadyReviewed();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_App_AddShortcut: function(){
+        var value = GamePush.AppAddShortcut();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_App_CanAddShortcut: function(){
+        var value = GamePush.AppCanAddShortcut();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+
     /* APP */
 
 
@@ -552,6 +593,10 @@ mergeInto(LibraryManager.library, {
         GamePush.GameplayStop();
     },
 
+    GP_GameReady: function(){
+        GamePush.GameReady();
+    },
+
     /*GAME*/
 
 
@@ -599,7 +644,14 @@ mergeInto(LibraryManager.library, {
     },
     /*SYSTEM*/
 
-
+    /*CUSTOM*/
+    GP_CustomCall1: function(custom){
+        GamePush.CustomCall(UTF8ToString(custom));
+    },
+    GP_CustomCall2: function(custom){
+        GamePush.CustomCall(custom);
+    },
+    /*CUSTOM*/
 
     /*VARIABLES*/
     GP_Variables_Fetch: function () {

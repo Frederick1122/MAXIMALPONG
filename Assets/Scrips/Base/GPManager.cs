@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Base;
 using GamePush;
 using Lean.Localization;
-using UnityEngine;
 
 public class GPManager : Singleton<GPManager>
 {
@@ -32,35 +31,35 @@ public class GPManager : Singleton<GPManager>
         return _browserLanguage;
     }
     
-    public void UpdateScore(int score)
-    {
-        _player.score = score;
-        GP_Player.SetScore(_player.score);
-        GP_Player.Sync();
-        UpdateLeaders();
-    }
-
-    public void UpdateNickname(string newNickname)
-    {
-        _player.name = newNickname;
-        GP_Player.SetName(_player.name);
-        GP_Player.Sync();
-        UpdateLeaders();
-    }
+    // public void UpdateScore(int score)
+    // {
+    //     _player.score = score;
+    //     GP_Player.SetScore(_player.score);
+    //     GP_Player.Sync();
+    //     UpdateLeaders();
+    // }
+    //
+    // public void UpdateNickname(string newNickname)
+    // {
+    //     _player.name = newNickname;
+    //     GP_Player.SetName(_player.name);
+    //     GP_Player.Sync();
+    //     UpdateLeaders();
+    // }
 
     public void ShowRewardedAds()
     {
         GP_Ads.ShowRewarded();
     }
 
-    public void FetchLeaderboard()
-    {
-        if(_isFetchLeaderboardActive)
-            return;
-        
-        _isFetchLeaderboardActive = true;
-        GP_Leaderboard.Fetch("scoreboard", withMe: WithMe.last);
-    }
+    // public void FetchLeaderboard()
+    // {
+    //     if(_isFetchLeaderboardActive)
+    //         return;
+    //     
+    //     _isFetchLeaderboardActive = true;
+    //     GP_Leaderboard.Fetch("scoreboard", withMe: WithMe.last);
+    // }
     
     protected override void Awake()
     {
@@ -69,12 +68,12 @@ public class GPManager : Singleton<GPManager>
         GP_Ads.OnPreloaderClose += PreloaderClose;
         GP_Leaderboard.OnFetchSuccess += OnFetchSuccess;
         GP_Ads.OnRewardedClose += RewardedAdsClose;
-        _player = new LeaderboardFetchData()
-        {
-            id = GP_Player.GetID(),
-            name = GP_Player.GetName(),
-            score = (int)GP_Player.GetScore()
-        };
+        // _player = new LeaderboardFetchData()
+        // {
+        //     id = GP_Player.GetID(),
+        //     name = GP_Player.GetName(),
+        //     score = (int)GP_Player.GetScore()
+        // };
         
         _browserLanguage = GP_Language.Current();
     }
@@ -98,7 +97,7 @@ public class GPManager : Singleton<GPManager>
 
     private void PreloaderClose(bool success)
     {
-        FetchLeaderboard();
+        // FetchLeaderboard();
     }
     
     private void OnFetchSuccess(string fetchTag, GP_Data data)
