@@ -16,15 +16,15 @@ public class GPManager : Singleton<GPManager>
     private Language _browserLanguage;
     private bool _isFetchLeaderboardActive = false;
     
-    public List<LeaderboardFetchData> GetLeaders()
-    {
-        return _leadersWithPlayer;
-    }
-
-    public LeaderboardFetchData GetPlayer()
-    {
-        return _player;
-    }
+    // public List<LeaderboardFetchData> GetLeaders()
+    // {
+    //     return _leadersWithPlayer;
+    // }
+    //
+    // public LeaderboardFetchData GetPlayer()
+    // {
+    //     return _player;
+    // }
 
     public Language GetBrowserLanguage()
     {
@@ -74,8 +74,8 @@ public class GPManager : Singleton<GPManager>
         //     name = GP_Player.GetName(),
         //     score = (int)GP_Player.GetScore()
         // };
-        
-        _browserLanguage = GP_Language.Current();
+
+        _browserLanguage = Language.Russian; //GP_Language.Current();
     }
     
     private void Start()

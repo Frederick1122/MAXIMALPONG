@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lean.Localization;
 using UnityEngine;
 
 public class LevelMenuView : UIView<LevelMenuModel>
 {
     private const string UI_LOCKED_LEVEL = "LOCKED";
+    private const string UI_LEVEL = "UI_LEVEL";
     
     public event Action<int> onLaunchLevel;
     public event Action onLaunchCustomLevel;
@@ -46,7 +48,7 @@ public class LevelMenuView : UIView<LevelMenuModel>
         for (int i = 0; i < _levels.Count; i++)
         {
             if (i < uiModel.lastOpenLevel)
-                _levels[i].SetText($"Level {i + 1}");
+                _levels[i].SetText($"{LeanLocalization.GetTranslationText(UI_LEVEL)} {i + 1}");
             else
                 _levels[i].SetIcon(UI_LOCKED_LEVEL);
         }
