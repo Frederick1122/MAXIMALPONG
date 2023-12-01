@@ -64,15 +64,19 @@ public class MatchManager : Singleton<MatchManager>
         }
 
         _activeBalls = new List<Ball>();
-        _teamScores.Clear();
 
         if (_levelRoutine != null)
             StopCoroutine(_levelRoutine);
 
-        if (!HasPlayerWin() || _currentLevel.isCustomLevel)
-            return;
+        if (HasPlayerWin() && !_currentLevel.isCustomLevel)
+        {
+            var lastLevelIndex = SaveManager.Instance.LevelsSaveData.Load().lastOpenLevel;
+            var currentLevelIndex = LoadingManager.Instance.GetCurrentLevelIndex() + 2;
+            if(lastLevelIndex < currentLevelIndex)
+                SaveManager.Instance.LevelsSaveData.Save(currentLevelIndex);
+        }
 
-        SaveManager.Instance.LevelsSaveData.Save(LoadingManager.Instance.GetCurrentLevelIndex() + 2);
+        _teamScores.Clear();
     }
 
     public void StartLevel(LevelConfig levelConfig)

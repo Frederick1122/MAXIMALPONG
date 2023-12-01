@@ -1,4 +1,3 @@
-using System;
 using UnityEngine.Audio;
 
 public class SettingsMenuController : UIController<SettingsMenuView, SettingsMenuModel>

@@ -7,8 +7,8 @@ public class SettingsSaveData : SaveData<SettingsMenuModel>
 
     public override void PreLoad()
     {
-        data.effectsVolume = PlayerPrefs.GetFloat(EFFECTS, 1f);
-        data.musicVolume = PlayerPrefs.GetFloat(MUSIC, 1f);
+        data.effectsVolume = PlayerPrefs.GetFloat(EFFECTS, 50);
+        data.musicVolume = PlayerPrefs.GetFloat(MUSIC, 50);
     }
 
     public override void Save(SettingsMenuModel obj)
