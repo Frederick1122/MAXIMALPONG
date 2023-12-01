@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -26,11 +25,18 @@ public class Ball : MonoBehaviour
         var ballStopper = collision.gameObject.GetComponent<BallStopper>();
         if (ballStopper != null)
         {
-            //Debug.Log($"Ball: {gameObject.name} Collision: {collision.gameObject.name} Old direction: {_direction}");
-            _direction = Vector3.Reflect(_direction, collision.contacts[collision.contacts.Length - 1].normal);
-            _direction = new Vector3(_direction.x * Random.Range(1f - _deviation, 1f + _deviation), 0,
-                _direction.z * Random.Range(1f - _deviation, 1f + _deviation));
-            //Debug.Log($"Ball: {gameObject.name} New direction: {_direction}");
+            if (ballStopper.IsPlane && _rigidbody.useGravity)
+            {
+                _rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
+                _rigidbody.useGravity = false;
+            }
+            else
+            {
+                _direction = Vector3.Reflect(_direction.normalized, collision.contacts[collision.contacts.Length - 1].normal);
+                _direction = new Vector3(_direction.x * Random.Range(1f - _deviation, 1f + _deviation), 0,
+                    _direction.z * Random.Range(1f - _deviation, 1f + _deviation));
+            }
+            
             _speed = Mathf.Clamp(_speed * ballStopper.Multiplier, 1f, _maxSpeed);
 
             if (ballStopper.TeamType != TeamType.None)
@@ -42,11 +48,7 @@ public class Ball : MonoBehaviour
                 _lastPunch = ballStopper.TeamType;
             }
 
-            if (ballStopper.IsPlane)
-            {
-                _rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
-                _rigidbody.useGravity = false;
-            }
+            
 
             SoundManager.Instance.AddNewEffect(SoundType.BALL_PUNCH);
             return;
