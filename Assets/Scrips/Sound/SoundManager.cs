@@ -2,10 +2,13 @@
 using Base;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 public class SoundManager : Singleton<SoundManager>
 {
     private const string SOUND_LIBRARY_PATH = "Configs/SoundLibrary";
+    private const string MASTER_MIXER = "Master";
+    private const float MINIMAL_SOUND_LEVEL = -80f;
 
     [SerializeField] private AudioMixer _mixer;
     
